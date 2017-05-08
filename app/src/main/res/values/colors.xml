@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorGround">#BAE383</color>
+    <color name="colorSky">#D9F5FF</color>
+    <color name="mildRed">#FF4848</color>
+    <color name="mildBlue">#6799FF</color>
+    <color name="gray">#bebdbd</color>
+    <color name="curDay">#FFA7A7</color>
+    <color name="selDay">#FFE08C</color>
+    <color name="otherDay">#F8F8F8</color>
+    <color name="colorDialog">#de000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="weekday">#FAECC5</color>
+    <color name="darkgray">#747474</color>
+    <color name="logout">#36589C</color>
+</resources>

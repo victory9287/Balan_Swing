@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorSky"
+    tools:context="com.example.victory.balan_swing.MenuActivity">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/accountName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="·  "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/menu_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="btnClick"
+                android:text="로그아웃"
+                android:textColor="@color/logout"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/menu_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="밸런스윙"
+            android:textSize="40sp" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:orientation="horizontal"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/menu_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:gravity="center"
+                android:text="달력"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/btnMenu1"
+                android:layout_gravity="center"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="btnClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/golfball" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/menu_personal"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:gravity="center"
+                android:text="개인연습"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/btnMenu2"
+                android:layout_gravity="center"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="btnClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/golfball" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/menu_compare"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:gravity="center"
+                android:text="비교연습"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/btnMenu3"
+                android:layout_gravity="center"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="btnClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/golfball" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:padding="10dp"
+        android:gravity="right|bottom"
+        android:text="ⓒcopyright by INPRO X GROUP 7"
+        android:background="@color/colorGround"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"/>
+</LinearLayout>

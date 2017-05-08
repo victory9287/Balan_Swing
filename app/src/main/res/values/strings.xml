@@ -1,0 +1,179 @@
+<resources>
+    <string name="app_name">BalanSwing</string>
+    <string-array name="dialog_select">
+        <item>언어 선택</item>
+        <item>Select language</item>
+        <item>言語の選択</item>
+        <item>語言選擇</item>
+    </string-array>
+    <string-array name="dialog_set">
+        <item>설정</item>
+        <item>set</item>
+        <item>セット</item>
+        <item>設置</item>
+    </string-array>
+    <string-array name="dialog_cancel">
+        <item>취소</item>
+        <item>cancel</item>
+        <item>キャンセル</item>
+        <item>取消</item>
+    </string-array>
+    <string-array name="menu_title">
+        <item>밸런스윙</item>
+        <item>Balan-Swing</item>
+        <item>バラン-スイング</item>
+        <item>平衡摆动</item>
+    </string-array>
+    <string-array name="menu_calendar">
+        <item>달력</item>
+        <item>calendar</item>
+        <item>カレンダー</item>
+        <item>日历</item>
+    </string-array>
+    <string-array name="menu_personal">
+        <item>개인연습</item>
+        <item>personal</item>
+        <item>個人</item>
+        <item>个人</item>
+    </string-array>
+    <string-array name="menu_compare">
+        <item>비교연습</item>
+        <item>compare</item>
+        <item>比較</item>
+        <item>比较</item>
+    </string-array>
+    <string-array name="menu_logout">
+        <item>로그아웃</item>
+        <item>logout</item>
+        <item>ログアウト</item>
+        <item>登出</item>
+    </string-array>
+    <string-array name="main_dayofweek">
+        <item>일</item>
+        <item>월</item>
+        <item>화</item>
+        <item>수</item>
+        <item>목</item>
+        <item>금</item>
+        <item>토</item>
+        <item>sun</item>
+        <item>mon</item>
+        <item>tue</item>
+        <item>wed</item>
+        <item>thu</item>
+        <item>fri</item>
+        <item>sat</item>
+        <item>日</item>
+        <item>月</item>
+        <item>火</item>
+        <item>水</item>
+        <item>木</item>
+        <item>金</item>
+        <item>土</item>
+        <item>日</item>
+        <item>月</item>
+        <item>火</item>
+        <item>水</item>
+        <item>木</item>
+        <item>金</item>
+        <item>土</item>
+    </string-array>
+    <string-array name="main_match">
+        <item>일치율</item>
+        <item>match rate</item>
+        <item>一致率</item>
+        <item>匹配率</item>
+    </string-array>
+    <string-array name="main_month">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <string-array name="select_start">
+        <item>시작하기</item>
+        <item>start</item>
+        <item>開始する</item>
+        <item>入门</item>
+    </string-array>
+    <string-array name="select_sample">
+        <item>타이거우즈</item>
+        <item>박인비</item>
+        <item>김영서</item>
+        <item>Tiger Woods</item>
+        <item>Park In-bi</item>
+        <item>Kim Young-seo</item>
+        <item>タイガー・ウッズ</item>
+        <item>パク・インビ</item>
+        <item>ギム・ヨウンソ</item>
+        <item>Tayigeo Woojeu</item>
+        <item>Park inbi</item>
+        <item>Gim youngseo</item>
+    </string-array>
+    <string-array name="detail_step">
+        <item>어드레스</item>
+        <item>탑오브스윙</item>
+        <item>임팩트</item>
+        <item>팔로우스루</item>
+        <item>address</item>
+        <item>top of swing</item>
+        <item>impact</item>
+        <item>follow through</item>
+        <item>アドレス</item>
+        <item>トップ・オブ・スイング</item>
+        <item>インパクト</item>
+        <item>フォロースルー</item>
+        <item>address</item>
+        <item>top of swing</item>
+        <item>impact</item>
+        <item>follow through</item>
+    </string-array>
+    <string-array name="login_signup">
+        <item>계정등록</item>
+        <item>sign up</item>
+        <item>サインアップ</item>
+        <item>報名</item>
+    </string-array>
+    <string-array name="login_login">
+        <item>로그인</item>
+        <item>login</item>
+        <item>ログイン</item>
+        <item>登錄</item>
+    </string-array>
+    <string-array name="signup_name">
+        <item>이름</item>
+        <item>name</item>
+        <item>名前</item>
+        <item>名字</item>
+    </string-array>
+    <string-array name="signup_ok">
+        <item>확인</item>
+        <item>OK</item>
+        <item>確認</item>
+        <item>確認</item>
+    </string-array>
+    <string-array name="signup_male">
+        <item>남성</item>
+        <item>male</item>
+        <item>男性</item>
+        <item>男性</item>
+    </string-array>
+    <string-array name="signup_female">
+        <item>여성</item>
+        <item>female</item>
+        <item>女性</item>
+        <item>女性</item>
+    </string-array>
+    <string name="spinnerTextSize">
+        35sp
+    </string>
+
+</resources>

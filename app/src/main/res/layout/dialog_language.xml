@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+    <RadioGroup
+        android:id="@+id/langCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:textColor="#000000"
+            android:id="@+id/kor"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="한국어" />
+
+        <RadioButton
+            android:textColor="#000000"
+            android:id="@+id/eng"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="English" />
+
+        <RadioButton
+            android:textColor="#000000"
+            android:id="@+id/jpn"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="日本語" />
+
+        <RadioButton
+            android:textColor="#000000"
+            android:id="@+id/zho"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="中國語" />
+    </RadioGroup>
+</LinearLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.victory.balan_swing.LoginActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:background="@color/colorSky"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="btnClick"
+            android:scaleType="fitCenter"
+            android:src="@drawable/kor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/accountSpinner"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:spinnerMode="dialog">
+
+            </Spinner>
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:onClick="btnClick"
+                android:text="로그인"
+                android:textAlignment="center"
+                android:textSize="25sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/login_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="계정추가"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/btnSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:adjustViewBounds="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="false"
+            android:onClick="btnClick"
+            android:scaleType="fitCenter"
+            android:src="@drawable/golfball" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorGround" />
+</LinearLayout>

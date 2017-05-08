@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.victory.balan_swing.CompareActivity">
+    <LinearLayout
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/gray"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="match_parent">
+        <VideoView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <VideoView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="@color/colorSky"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/btnSetting"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="btnClick"
+                android:padding="7dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting"
+                android:text="◀" />
+
+            <Button
+                android:id="@+id/btnDetail"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:onClick="btnClick"
+                android:text="★" />
+            <Button
+                android:id="@+id/btnCompareBack"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:onClick="btnClick"
+                android:text="◀" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/compare_profile"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/profile_w" />
+
+            <TextView
+                android:id="@+id/compare_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="박인비"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/foot_left" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/foot_right" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/personalGraphView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:background="@color/colorGround"
+            android:orientation="horizontal"></LinearLayout>
+    </LinearLayout>
+</LinearLayout>

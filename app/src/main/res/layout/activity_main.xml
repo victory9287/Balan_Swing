@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSky"
+    android:orientation="vertical"
+    tools:context="com.example.victory.balan_swing.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnPrevMonth"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:text="◀"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="200dp"
+                        android:layout_height="30dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvCurCal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:textAlignment="gravity"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnNextMonth"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:text="▶"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/DayOftheWeek"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/sun"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/sun_bg"
+                        android:text="일"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/mon"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/weekday_bg"
+                        android:text="월"
+                        android:textColor="@color/darkgray"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tue"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/weekday_bg"
+                        android:text="화"
+                        android:textColor="@color/darkgray"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/wed"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/weekday_bg"
+                        android:text="수"
+                        android:textColor="@color/darkgray"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/thu"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/weekday_bg"
+                        android:text="목"
+                        android:textColor="@color/darkgray"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/fri"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/weekday_bg"
+                        android:text="금"
+                        android:textColor="@color/darkgray"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/sat"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/sat_bg"
+                        android:text="토"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/calendarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnMainBack"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:onClick="btnClick"
+                android:text="◀" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/main_match"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="일치율"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/btnSync"
+                android:layout_gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:adjustViewBounds="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:scaleType="fitCenter"
+                android:src="@drawable/golfball" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorGround" />
+</LinearLayout>

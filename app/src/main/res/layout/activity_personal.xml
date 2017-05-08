@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="com.example.victory.balan_swing.PersonalActivity">
+    <LinearLayout
+        android:gravity="center"
+        android:background="@color/gray"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="match_parent">
+        <VideoView
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/colorSky"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnPersonalBack"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:onClick="btnClick"
+                android:text="◀" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3" />
+
+        <LinearLayout
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/imageView4"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+            <ImageView
+                android:scaleType="fitCenter"
+                android:src="@drawable/foot_left"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+            <ImageView
+                android:scaleType="fitCenter"
+                android:src="@drawable/foot_right"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="@color/colorGround"
+            android:id="@+id/personalGraphView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4">
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
