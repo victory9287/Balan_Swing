@@ -26,7 +26,7 @@ import static com.example.victory.balan_swing.R.id.btnSignup;
 
 public class LoginActivity extends AppCompatActivity {
     Spinner accountSpinner;
-    ArrayList<Account> accountList;
+    ArrayList accountList;
     String account;
     Button btnLogin;
     TextView tvSignup;
@@ -43,22 +43,10 @@ public class LoginActivity extends AppCompatActivity {
 
     final int REQUEST_SIGNUP = 1;
 
-    MyDBHandler dbHandler;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Log.d("onCreate", "call");
-
-        pref = getSharedPreferences("pref", MODE_PRIVATE);
-        lang = pref.getInt("language", 0);
-        String check = pref.getString("account", "");
-        if (check.length() > 0){
-            Intent intent = new Intent(this, MenuActivity.class);
-            startActivity(intent);
-            finish();
-        }
 
         select = getResources().getStringArray(R.array.dialog_select);
         set = getResources().getStringArray(R.array.dialog_set);
@@ -68,13 +56,11 @@ public class LoginActivity extends AppCompatActivity {
 
         //디비에서 계정 리스트 받아오기
         accountList = new ArrayList();
-        dbHandler = new MyDBHandler(this, null, null, 1);
-        accountList = dbHandler.loadAccount();
-        if (accountList.isEmpty()){
-            Intent intent = new Intent(this, SignupActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        accountList.add("victory9287");
+        accountList.add("im_j_in");
+
+        pref = getSharedPreferences("pref", MODE_PRIVATE);
+        lang = pref.getInt("language", 0);
 
         btnLanguage = (ImageButton) findViewById(R.id.btnLanguage);
         tvSignup = (TextView) findViewById(R.id.login_signup);
@@ -82,11 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setEnabled(false);
 
         accountSpinner = (Spinner) findViewById(R.id.accountSpinner);
-        ArrayList<String> idList = new ArrayList<>();
-        for (int i = 0; i < accountList.size(); i++){
-            idList.add(accountList.get(i).getM_Id());
-        }
-        adapter = new ArrayAdapter<String>(this, R.layout.spinner_entry, idList);
+        adapter = new ArrayAdapter<String>(this, R.layout.spinner_entry, accountList);
         accountSpinner.setAdapter(adapter);
         accountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -126,15 +108,11 @@ public class LoginActivity extends AppCompatActivity {
         switch (view.getId()){
             case btnSignup:
                 intent = new Intent(this, SignupActivity.class);
-                //startActivityForResult(intent, REQUEST_SIGNUP);
-                startActivity(intent);
-                finish();
+                startActivityForResult(intent, REQUEST_SIGNUP);
                 break;
             case R.id.btnLogin:
                 intent = new Intent(this, MenuActivity.class);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("account", account);
-                editor.commit();
+                intent.putExtra("account", account);
                 startActivity(intent);
                 finish();
                 break;
@@ -185,8 +163,8 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == REQUEST_SIGNUP){
             if (resultCode == RESULT_OK){
                 Log.d("check", "ok");
-                //String newAcc = data.getStringExtra("newAcc");
-                //accountList.add(newAcc);
+                String newAcc = data.getStringExtra("newAcc");
+                accountList.add(newAcc);
                 adapter.notifyDataSetChanged();
                 accountSpinner.setEnabled(true);
             }
