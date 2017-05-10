@@ -16,7 +16,9 @@ public class MenuActivity extends AppCompatActivity {
     int sample, lang;
 
     String[] title, calendar, personal, compare, logout;
-    String userName;
+    String account;
+
+    MyDBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class MenuActivity extends AppCompatActivity {
         tvName = (TextView) findViewById(R.id.accountName);
 
         pref = getSharedPreferences("pref", MODE_PRIVATE);
+        account = pref.getString("account", "");
         lang = pref.getInt("language", 0);
         sample = pref.getInt("sample", -1);
 
@@ -70,6 +73,10 @@ public class MenuActivity extends AppCompatActivity {
         }
         editor.commit();
         tvName.setText(userName);*/
+        dbHandler = new MyDBHandler(this, null, null, 1);
+        if (account.length()>0){
+            tvName.setText(dbHandler.returnName(account));
+        }
     }
 
     public void btnClick(View view) {
@@ -94,7 +101,8 @@ public class MenuActivity extends AppCompatActivity {
             case R.id.menu_logout:
                 // 로그아웃
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putString("userID", "");
+                editor.putString("account", "");
+                editor.commit();
                 // (다이얼로그 띄우기)
                 intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);

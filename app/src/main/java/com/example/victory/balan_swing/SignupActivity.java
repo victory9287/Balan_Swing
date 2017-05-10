@@ -5,18 +5,21 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class SignupActivity extends AppCompatActivity {
     EditText etID, etName;
     TextView tvOk;
     RadioGroup genderGroup;
     RadioButton btnMale, btnFemale;
-    boolean gender;
+    int gender;
 
     String[] name, ok, male, female;
 
@@ -43,10 +46,10 @@ public class SignupActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId){
                     case R.id.signup_male:
-                        gender = true;
+                        gender = 1;
                         break;
                     case R.id.signup_female:
-                        gender = false;
+                        gender = 0;
                         break;
                 }
             }
@@ -73,9 +76,19 @@ public class SignupActivity extends AppCompatActivity {
                 String name = etName.getText().toString();
 
                 // 계정 디비에 저장
+                Account account = new Account(id, name, gender);
+                MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+                dbHandler.addAccount(account);
+
+                ArrayList<Account> temp = new ArrayList<>();
+                temp = dbHandler.loadAccount();
+                for (int i = 0; i < temp.size(); i++){
+                    Log.d("check", temp.get(i).getM_Id() + " " + temp.get(i).getM_name());
+                }
                 Intent intent = new Intent(this, LoginActivity.class);
-                intent.putExtra("newAcc", id);
-                setResult(RESULT_OK, intent);
+                startActivity(intent);
+                //intent.putExtra("newAcc", id);
+                //setResult(RESULT_OK, intent);
                 finish();
             }
         }

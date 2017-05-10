@@ -9,14 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-            android:screenOrientation="landscape">
-        </activity>
-        <activity android:name=".CompareActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".DetailActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".CompareActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".DetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".LoginActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,14 +27,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".PersonalActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".SelectActivity"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".SignupActivity"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".MenuActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".PersonalActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SelectActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SignupActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".ClubActivity"></activity>
     </application>
 
 </manifest>
