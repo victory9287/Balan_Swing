@@ -1,14 +1,17 @@
 package com.example.victory.balan_swing;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +29,7 @@ import static com.example.victory.balan_swing.R.id.btnSignup;
 
 public class LoginActivity extends AppCompatActivity {
     Spinner accountSpinner;
-    ArrayList accountList;
+    ArrayList<Account> accountList;
     String account;
     Button btnLogin;
     TextView tvSignup;
@@ -43,10 +46,18 @@ public class LoginActivity extends AppCompatActivity {
 
     final int REQUEST_SIGNUP = 1;
 
+    MyDBHandler dbHandler;
+
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Log.d("onCreate", "check");
+
+        verifyStoragePermissions(this);
 
         select = getResources().getStringArray(R.array.dialog_select);
         set = getResources().getStringArray(R.array.dialog_set);
@@ -54,13 +65,22 @@ public class LoginActivity extends AppCompatActivity {
         login = getResources().getStringArray(R.array.login_login);
         signup = getResources().getStringArray(R.array.login_signup);
 
-        //디비에서 계정 리스트 받아오기
-        accountList = new ArrayList();
-        accountList.add("victory9287");
-        accountList.add("im_j_in");
-
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         lang = pref.getInt("language", 0);
+        String check = pref.getString("account", "");
+        if (check.length()>0){
+            Intent intent = new Intent(this, MenuActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        dbHandler = new MyDBHandler(this, null, null, 1);
+        accountList = dbHandler.loadAccount();
+        if (accountList.isEmpty()){
+            Intent intent = new Intent(this, SignupActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         btnLanguage = (ImageButton) findViewById(R.id.btnLanguage);
         tvSignup = (TextView) findViewById(R.id.login_signup);
@@ -68,7 +88,11 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setEnabled(false);
 
         accountSpinner = (Spinner) findViewById(R.id.accountSpinner);
-        adapter = new ArrayAdapter<String>(this, R.layout.spinner_entry, accountList);
+        ArrayList<String> idList = new ArrayList<>();
+        for (int i = 0; i < accountList.size(); i++){
+            idList.add(accountList.get(i).getM_Id());
+        }
+        adapter = new ArrayAdapter<String>(this, R.layout.spinner_entry, idList);
         accountSpinner.setAdapter(adapter);
         accountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -108,11 +132,15 @@ public class LoginActivity extends AppCompatActivity {
         switch (view.getId()){
             case btnSignup:
                 intent = new Intent(this, SignupActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
+                //startActivityForResult(intent, REQUEST_SIGNUP);
+                startActivity(intent);
+                finish();
                 break;
             case R.id.btnLogin:
                 intent = new Intent(this, MenuActivity.class);
-                intent.putExtra("account", account);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("account", account);
+                editor.commit();
                 startActivity(intent);
                 finish();
                 break;
@@ -135,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.setTitle(select[lang]);
                 alert.setView(dialogView);
                 alert.setPositiveButton(set[lang], new DialogInterface.OnClickListener() {
@@ -163,11 +191,22 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == REQUEST_SIGNUP){
             if (resultCode == RESULT_OK){
                 Log.d("check", "ok");
-                String newAcc = data.getStringExtra("newAcc");
-                accountList.add(newAcc);
+                //String newAcc = data.getStringExtra("newAcc");
+                //accountList.add(newAcc);
                 adapter.notifyDataSetChanged();
                 accountSpinner.setEnabled(true);
             }
+        }
+    }
+
+    public static void verifyStoragePermissions(Activity activity){
+        // Check if we have read or write permission
+        int writePermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int readPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (writePermission != PackageManager.PERMISSION_GRANTED
+                || readPermission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
         }
     }
 }
