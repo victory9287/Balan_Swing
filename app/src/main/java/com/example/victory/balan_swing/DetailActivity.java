@@ -26,6 +26,9 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         init();
+        mView = new MYView(this);
+        mPDRField = (LinearLayout)findViewById(R.id.personalGraphView);
+        mPDRField.addView(mView);
     }
 
     public void init() {
@@ -68,5 +71,6 @@ public class DetailActivity extends AppCompatActivity {
                 break;
         }
     }
+
 }
 
