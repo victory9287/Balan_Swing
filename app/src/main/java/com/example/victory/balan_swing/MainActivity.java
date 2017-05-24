@@ -2,12 +2,15 @@ package com.example.victory.balan_swing;
 
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -132,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences pref;
     int lang;
 
-    String[] main_dayofweek, main_match, main_month;
+    String[] main_dayofweek, main_match, main_month, sync;
     int[] dayofweekID = {
             R.id.sun, R.id.mon, R.id.tue, R.id.wed, R.id.thu, R.id.fri, R.id.sat
     };
@@ -398,6 +402,42 @@ public class MainActivity extends AppCompatActivity {
                 tvCurCal.setText(String.format("%04d年 %02d月", theYear, theMonth+1));
                 break;
         }
+    }
+
+    public void btnClick(View view) {
+        final LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View dialogView = inflater.inflate(R.layout.dialog_graph, null);
+
+        GraphView graphView = (GraphView) dialogView.findViewById(R.id.GraphView);
+
+        Random random = new Random();
+        int[] points = new int[10];
+        int[] month = new int[12];
+
+        for (int i = 0; i < 12; i++) {
+            month[i] = random.nextInt(100);
+        }
+
+        for (int i = 0; i < 10; i++) {
+            points[i] = month[i];
+        }
+
+        //int[] points = {5, 3, 7, 8, 4, 3, 3, 6, 4, 1};
+
+        //GraphView graphview = (GraphView) findViewById(R.id.GraphView);
+
+        //단위는 1씩, 원점은 0, 총 10줄로 나누어진 그래프를 그린다
+        graphView.setPoints(points, 1, 0, 100);
+        graphView.drawForBeforeDrawView();
+
+        sync = getResources().getStringArray(R.array.main_match);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(sync[lang]);
+        alert.setView(dialogView);
+
+        AlertDialog dialog = alert.show();
+        dialog.show();
     }
 
 }

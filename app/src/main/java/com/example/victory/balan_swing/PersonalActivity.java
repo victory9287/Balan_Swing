@@ -1,6 +1,7 @@
 package com.example.victory.balan_swing;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Bundle;
@@ -24,6 +25,9 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
     boolean mFirst = true;
 
     PlaybackParams params;
+
+    SharedPreferences pref;
+    int lang, club;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
