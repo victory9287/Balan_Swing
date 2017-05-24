@@ -142,15 +142,15 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
                     }
                 }
             });
-
-            mPlayer.prepareAsync();
-
             mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
                     mPlayer.start();
                 }
             });
+
+            mPlayer.prepareAsync();
+
 
         } catch (IOException e) {
 

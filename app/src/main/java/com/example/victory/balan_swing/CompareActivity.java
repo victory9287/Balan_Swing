@@ -158,7 +158,6 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
                     mPlayer.start();
                 }
             });
-
             mPlayer.prepareAsync();
 //            mPlayer2.prepareAsync();
 
@@ -208,12 +207,17 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
     public void deletePlayer() {
 
-        if (mPlayer != null) {
+        if (mPlayer != null && mPlayer2 !=null) {
 
             mPlayer.stop();
+            mPlayer2.stop();
 
             mPlayer.release();
+            mPlayer2.release();
+
             mPlayer = null;
+            mPlayer2 = null;
+
         }
 
     }
