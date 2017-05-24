@@ -95,6 +95,13 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
                 }
             });
 
+            mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    mPlayer.start();
+                }
+            });
+
             mPlayer.prepareAsync();
 
 
