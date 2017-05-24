@@ -1,7 +1,6 @@
 package com.example.victory.balan_swing;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
@@ -26,8 +26,8 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
 
     PlaybackParams params;
 
-    SharedPreferences pref;
-    int lang, club;
+    private LinearLayout mPDRField;
+    MYView mView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,10 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
         SurfaceView sv = (SurfaceView) findViewById(R.id.svVideo);
         mSh = sv.getHolder();
         mSh.addCallback(this);
+
+        mView = new MYView(this);
+        mPDRField = (LinearLayout)findViewById(R.id.personalGraphView);
+        mPDRField.addView(mView);
 
     }
 
