@@ -75,6 +75,7 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
             case R.id.btnHome:
                 intent = new Intent(DetailActivity.this, MenuActivity.class);
                 startActivity(intent); // resultcode 확인필요
+                deletePlayer();
                 // compareActivity 삭제
                 finish();
                 break;
@@ -110,7 +111,7 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
 
         //String filePath = sdRootPath+"/DCIM/Camera"+"/20170426_162440.mp4"; //영서 오빠 영상
         //String filePath = sdRootPath+"/DCIM/Camera"+"/20170314_225610.mp4"; // 종현이 영상
-        String filePath = sdRootPath + "/Download" + "/KaKaoTalk_Video_20170427_1546_56_722.mp4"; // 넥서스 영상
+        String filePath = sdRootPath + "/DCIM/Camera"+"/Mswing.mp4"; // 넥서스 영상
 
 
         try {
@@ -133,7 +134,7 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
                     if (StartNStop) {
                         params = mPlayer.getPlaybackParams();
 
-                        float slow = 0.5f;
+                        float slow = 0.3f;
                         mPlayer.setPlaybackParams(params.setSpeed(slow));
                         mPlayer.start();
                     } else {
@@ -187,5 +188,18 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
     public void surfaceDestroyed(SurfaceHolder holder) {
     }
 
+    public void deletePlayer() {
+
+        if (mPlayer != null) {
+
+            mPlayer.stop();
+
+            mPlayer.release();
+
+            mPlayer = null;
+
+        }
+
+    }
 }
 
