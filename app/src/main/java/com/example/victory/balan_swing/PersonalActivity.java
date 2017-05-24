@@ -55,7 +55,7 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
 
         //String filePath = sdRootPath+"/DCIM/Camera"+"/20170426_162440.mp4"; //영서 오빠 영상
         //String filePath = sdRootPath+"/DCIM/Camera"+"/20170314_225610.mp4"; // 종현이 영상
-        String filePath = sdRootPath + "/DCIM/Camera" + "/20170501_161246.mp4"; // 종현이 영상
+        String filePath = sdRootPath + "/Download" + "/KaKaoTalk_Video_20170427_1546_56_722.mp4"; // 넥서스 영상
 
 
         try {
