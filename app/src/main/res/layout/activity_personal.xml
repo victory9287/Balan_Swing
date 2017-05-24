@@ -123,11 +123,14 @@
                 android:text="◀" />
         </LinearLayout>
 
-        <View
+        <LinearLayout
+            android:gravity="center|bottom"
+            android:orientation="horizontal"
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3" />
+            android:layout_weight="3">
+        </LinearLayout>
 
         <LinearLayout
             android:paddingLeft="10dp"

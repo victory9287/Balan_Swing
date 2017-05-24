@@ -128,6 +128,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void btnClick(View view) {
+
         Intent intent;
         switch (view.getId()){
             case btnSignup:

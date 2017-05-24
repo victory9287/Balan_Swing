@@ -172,6 +172,40 @@
         <item>女性</item>
         <item>女性</item>
     </string-array>
+    <string-array name="club_title">
+        <item>클럽선택</item>
+        <item>club selection</item>
+        <item>クラブ選択</item>
+        <item>選擇俱樂部</item>
+    </string-array>
+    <string-array name="club_spinner_kor">
+        <item>드라이버</item>
+        <item>우드</item>
+        <item>아이언</item>
+        <item>웨지</item>
+        <item>퍼터</item>
+    </string-array>
+    <string-array name="club_spinner_eng">
+        <item>Driver</item>
+        <item>Wood</item>
+        <item>Iron</item>
+        <item>Wedge</item>
+        <item>Putter</item>
+    </string-array>
+    <string-array name="club_spinner_jpn">
+        <item>ドライバ</item>
+        <item>ウッド</item>
+        <item>アイアン</item>
+        <item>ウェッジ</item>
+        <item>パター</item>
+    </string-array>
+    <string-array name="club_spinner_zho">
+        <item>Driver</item>
+        <item>Wood</item>
+        <item>Iron</item>
+        <item>Wedge</item>
+        <item>Putter</item>
+    </string-array>
     <string name="spinnerTextSize">
         35sp
     </string>
