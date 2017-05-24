@@ -40,6 +40,7 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
         switch (view.getId())
         {
             case R.id.btnPersonalBack:
+                deletePlayer();
                 Intent intent = new Intent(PersonalActivity.this, MenuActivity.class);
                 startActivity(intent);
                 finish();
@@ -55,7 +56,7 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
 
         //String filePath = sdRootPath+"/DCIM/Camera"+"/20170426_162440.mp4"; //영서 오빠 영상
         //String filePath = sdRootPath+"/DCIM/Camera"+"/20170314_225610.mp4"; // 종현이 영상
-        String filePath = sdRootPath + "/DCIM/Camera" + "/20170501_161246.mp4"; // 종현이 영상
+        String filePath = sdRootPath + "/DCIM/Camera"+"/Mswing.mp4"; // 넥서스 영상
 
 
         try {
