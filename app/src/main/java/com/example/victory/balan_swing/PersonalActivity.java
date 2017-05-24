@@ -1,6 +1,11 @@
 package com.example.victory.balan_swing;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Bundle;
@@ -26,6 +31,9 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
 
     PlaybackParams params;
 
+    SharedPreferences pref;
+    int lang, club;
+
     private LinearLayout mPDRField;
     MYView mView;
 
@@ -41,7 +49,6 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
         mView = new MYView(this);
         mPDRField = (LinearLayout)findViewById(R.id.personalGraphView);
         mPDRField.addView(mView);
-
     }
 
     public void btnClick(View view) {
@@ -51,6 +58,7 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
                 deletePlayer();
                 Intent intent = new Intent(PersonalActivity.this, MenuActivity.class);
                 startActivity(intent);
+                deletePlayer();
                 finish();
                 break;
         }
@@ -214,5 +222,4 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
         }
 
     }
-
 }
