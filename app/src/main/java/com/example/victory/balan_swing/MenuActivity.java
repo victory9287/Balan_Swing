@@ -20,6 +20,9 @@ public class MenuActivity extends AppCompatActivity {
 
     MyDBHandler dbHandler;
 
+    static final int RC_PERSONAL = 1000;
+    static final int RC_COMPARE = 2000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,16 +90,12 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.btnMenu2:
-                intent = new Intent(this, PersonalActivity.class);
-                startActivity(intent);
+                intent = new Intent(this, ClubActivity.class);
+                startActivityForResult(intent, RC_PERSONAL);
                 break;
             case R.id.btnMenu3:
-                if (sample == -1) {
-                    intent = new Intent(this, SelectActivity.class);
-                } else {
-                    intent = new Intent(this, CompareActivity.class);
-                }
-                startActivity(intent);
+                intent = new Intent(this, ClubActivity.class);
+                startActivityForResult(intent, RC_COMPARE);
                 break;
             case R.id.menu_logout:
                 // 로그아웃
@@ -108,6 +107,27 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Intent intent;
+        if (requestCode == RC_PERSONAL) {
+            if (resultCode == RESULT_OK) {
+                intent = new Intent(this, PersonalActivity.class);
+                startActivity(intent);
+            }
+        } else if (requestCode == RC_COMPARE) {
+            if (resultCode == RESULT_OK) {
+                if (sample == -1) {
+                    intent = new Intent(this, SelectActivity.class);
+                } else {
+                    intent = new Intent(this, CompareActivity.class);
+                }
+                startActivity(intent);
+            }
         }
     }
 }

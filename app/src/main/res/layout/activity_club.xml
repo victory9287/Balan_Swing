@@ -1,9 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.victory.balan_swing.ClubActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:background="@color/colorSky"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:gravity="center|bottom"
+            android:orientation="vertical"
+            android:id="@+id/btnLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+            <TextView
+                android:text="클럽선택"
+                android:id="@+id/club_title"
+                android:textSize="30sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Spinner
+                android:id="@+id/clubSpinner"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:spinnerMode="dialog">
+            </Spinner>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/club_start"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="시작하기"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/btnStart"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:adjustViewBounds="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="false"
+            android:onClick="btnClick"
+            android:scaleType="fitCenter"
+            android:src="@drawable/golfball" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorGround" />
+</LinearLayout>
