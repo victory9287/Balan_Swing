@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:gravity="center">
+    <RadioGroup
+        android:id="@+id/langCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:checked="true"
+            android:textColor="#000000"
+            android:id="@+id/club1"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="드라이버" />
+
+        <RadioButton
+            android:textColor="#000000"
+            android:id="@+id/club2"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="우드" />
+
+        <RadioButton
+            android:textColor="#000000"
+            android:id="@+id/club3"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="아이언" />
+
+        <RadioButton
+            android:textColor="#000000"
+            android:id="@+id/club4"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="웨지" />
+
+        <RadioButton
+            android:textColor="#000000"
+            android:id="@+id/club5"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="퍼터" />
+    </RadioGroup>
+</LinearLayout>

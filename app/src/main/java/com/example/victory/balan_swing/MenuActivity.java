@@ -1,11 +1,17 @@
 package com.example.victory.balan_swing;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class MenuActivity extends AppCompatActivity {
@@ -15,13 +21,11 @@ public class MenuActivity extends AppCompatActivity {
     SharedPreferences pref;
     int sample, lang;
 
-    String[] title, calendar, personal, compare, logout;
+    String[] title, calendar, personal, compare, logout, clubTitle, clubList, set, cancel;
     String account;
+    int club;
 
     MyDBHandler dbHandler;
-
-    static final int RC_PERSONAL = 1000;
-    static final int RC_COMPARE = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,23 @@ public class MenuActivity extends AppCompatActivity {
         personal = getResources().getStringArray(R.array.menu_personal);
         compare = getResources().getStringArray(R.array.menu_compare);
         logout = getResources().getStringArray(R.array.menu_logout);
+        clubTitle = getResources().getStringArray(R.array.club_title);
+        switch (lang) {
+            case 0:
+                clubList = getResources().getStringArray(R.array.club_spinner_kor);
+                break;
+            case 1:
+                clubList = getResources().getStringArray(R.array.club_spinner_eng);
+                break;
+            case 2:
+                clubList = getResources().getStringArray(R.array.club_spinner_jpn);
+                break;
+            case 3:
+                clubList = getResources().getStringArray(R.array.club_spinner_zho);
+                break;
+        }
+        set = getResources().getStringArray(R.array.dialog_set);
+        cancel = getResources().getStringArray(R.array.dialog_cancel);
 
         tvTitle.setText(title[lang]);
         tvCalendar.setText(calendar[lang]);
@@ -59,23 +80,6 @@ public class MenuActivity extends AppCompatActivity {
         tvCompare.setText(compare[lang]);
         tvLogout.setText(logout[lang]);
 
-        /*Intent intent = getIntent();
-        String account = intent.getStringExtra("account");
-        Log.d("check", account);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("userID", account);
-        if (account.equals("victory9287")) {
-            editor.putString("userName", "허승리");
-            userName = "허승리";
-        } else if (account.equals("im_j_in")) {
-            editor.putString("userName", "임재인");
-            userName = "임재인";
-        } else if (account.equals("kangj")) {
-            editor.putString("userName", "강종현");
-            userName = "강종현";
-        }
-        editor.commit();
-        tvName.setText(userName);*/
         dbHandler = new MyDBHandler(this, null, null, 1);
         if (account.length()>0){
             tvName.setText(dbHandler.returnName(account));
@@ -90,12 +94,10 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.btnMenu2:
-                intent = new Intent(this, ClubActivity.class);
-                startActivityForResult(intent, RC_PERSONAL);
+                selectClub(true);
                 break;
             case R.id.btnMenu3:
-                intent = new Intent(this, ClubActivity.class);
-                startActivityForResult(intent, RC_COMPARE);
+                selectClub(false);
                 break;
             case R.id.menu_logout:
                 // 로그아웃
@@ -110,24 +112,49 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Intent intent;
-        if (requestCode == RC_PERSONAL) {
-            if (resultCode == RESULT_OK) {
-                intent = new Intent(this, PersonalActivity.class);
-                startActivity(intent);
+    public void selectClub(final boolean flag){
+        club = 0;
+
+        final LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View dialogView = inflater.inflate(R.layout.dialog_club, null);
+
+        RadioGroup radioGroup = (RadioGroup) dialogView.findViewById(R.id.langCheck);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId){
+                    case R.id.club1: club = 0; break;
+                    case R.id.club2: club = 1; break;
+                    case R.id.club3: club = 2; break;
+                    case R.id.club4: club = 3; break;
+                    case R.id.club5: club = 4; break;
+                }
             }
-        } else if (requestCode == RC_COMPARE) {
-            if (resultCode == RESULT_OK) {
-                if (sample == -1) {
-                    intent = new Intent(this, SelectActivity.class);
-                } else {
-                    intent = new Intent(this, CompareActivity.class);
+        });
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(clubTitle[lang]);
+        alert.setView(dialogView);
+        alert.setPositiveButton(set[lang], new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("club", club);
+                editor.commit();
+                Intent intent;
+                if (flag)
+                    intent = new Intent(getApplicationContext(), PersonalActivity.class);
+                else {
+                    if (sample == -1)
+                        intent = new Intent(getApplicationContext(), SelectActivity.class);
+                    else
+                        intent = new Intent(getApplicationContext(), CompareActivity.class);
                 }
                 startActivity(intent);
             }
-        }
+        });
+
+        AlertDialog dialog = alert.show();
+        dialog.show();
     }
 }

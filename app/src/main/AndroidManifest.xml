@@ -41,9 +41,6 @@
         <activity
             android:name=".SignupActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".ClubActivity"
-            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
