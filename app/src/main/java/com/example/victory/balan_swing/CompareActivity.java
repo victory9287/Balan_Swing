@@ -27,38 +27,45 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
     int[] profileID = {R.drawable.profile_m, R.drawable.profile_w, R.drawable.profile_m};
     String[] select_sample;
 
-    SurfaceHolder mSh;
+    SurfaceView sv[];
+    SurfaceHolder mSh[];
     String sdRootPath;
-    MediaPlayer mPlayer;
-    MediaPlayer mPlayer2;
+    MediaPlayer mPlayer[];
 
     boolean StartNStop = true;
-    boolean mFirst = true;
 
     PlaybackParams params;
 
     private LinearLayout mPDRField;
     MYView mView;
+    static int selectVideo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compare);
         init();
-        SurfaceView sv[] = new SurfaceView[2];
+
+    }
+
+    public void init() {
+
+        sv = new SurfaceView[2];
         sv[0]= (SurfaceView)findViewById(R.id.partnerVideo);
         sv[1] = (SurfaceView)findViewById(R.id.myVideo);
 
-        mSh = sv[0].getHolder();
-        mSh.addCallback(this);
+        mSh = new SurfaceHolder[2];
+
+        for(int i=0;i<2;i++){
+            mSh[i] = sv[i].getHolder();
+            mSh[i].addCallback(this);
+        }
 
 
         mView = new MYView(this);
         mPDRField = (LinearLayout)findViewById(R.id.personalGraphView);
         mPDRField.addView(mView);
-    }
-
-    public void init() {
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         lang = pref.getInt("language", 0);
         sample = pref.getInt("sample", -1);
@@ -82,20 +89,20 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         switch (view.getId())
         {
             case R.id.btnCompareBack:
-                deletePlayer();
                 intent = new Intent(CompareActivity.this, MenuActivity.class);
                 startActivity(intent);
+                deletePlayer();
                 finish();
                 break;
             case R.id.btnDetail:
-                deletePlayer();
                 intent = new Intent(CompareActivity.this, DetailActivity.class);
                 startActivity(intent);
+                deletePlayer();
                 break;
             case R.id.btnSetting:
-                deletePlayer();
                 intent = new Intent(CompareActivity.this, SelectActivity.class);
                 startActivity(intent);
+                deletePlayer();
                 // 설정 바꾸면 finish
                 // 아니면 그대로
         }
@@ -111,67 +118,67 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
         try {
 
-            mPlayer = new MediaPlayer();
-            mPlayer2 = new MediaPlayer();
+            mPlayer = new MediaPlayer[2];
 
             //error 1, 2147483648 나는 코드
             //mPlayer.setDataSource(filePath);
 
             //에러 수정 코드
-            FileInputStream fileInputStream1;
-            FileInputStream fileInputStream2;
-
-                fileInputStream1 = new FileInputStream(filePath[0]);
-
-                mPlayer.setDataSource(fileInputStream1.getFD());
-                fileInputStream1.close();
-
-                fileInputStream2 = new FileInputStream(filePath[1]);
-
-                mPlayer2.setDataSource(fileInputStream2.getFD());
-                fileInputStream2.close();
-
-
+            FileInputStream fileInputStream[] = new FileInputStream[2];
 
             final float slow = 0.3f;
 
-            mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            for(int i=0;i<2;i++){
+                mPlayer[i] = new MediaPlayer();
+                fileInputStream[i] = new FileInputStream(filePath[i]);
+
+                mPlayer[i].setDataSource(fileInputStream[i].getFD());
+                fileInputStream[i].close();
+
+
+
+                mPlayer[i].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        mediaPlayer.start();
+                    }
+                });
+            }
+
+            mPlayer[0].setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     if (StartNStop) {
-                        params = mPlayer.getPlaybackParams();
+                        params = mediaPlayer.getPlaybackParams();
 
-                        mPlayer.setPlaybackParams(params.setSpeed(slow));
-                        mPlayer.start();
+                        mediaPlayer.setPlaybackParams(params.setSpeed(slow));
+                        mediaPlayer.start();
+                        selectVideo = 0;
                     } else {
-                        mPlayer.pause();
+                        mediaPlayer.pause();
                     }
                 }
             });
 
-            mPlayer2.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            mPlayer[1].setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                int selectVideo = 1;
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     if (StartNStop) {
-                        params = mPlayer2.getPlaybackParams();
+                        params = mediaPlayer.getPlaybackParams();
 
-                        mPlayer2.setPlaybackParams(params.setSpeed(slow));
-                        mPlayer2.start();
+                        mediaPlayer.setPlaybackParams(params.setSpeed(slow));
+                        mediaPlayer.start();
+                        selectVideo = 1;
                     } else {
-                        mPlayer2.pause();
+                        mediaPlayer.pause();
                     }
                 }
             });
 
-            mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    mPlayer.start();
-                }
-            });
-            mPlayer.prepareAsync();
-//            mPlayer2.prepareAsync();
-
+            mPlayer[0].prepareAsync();
+            mPlayer[1].prepareAsync();
 
         } catch (IOException e) {
 
@@ -191,11 +198,15 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
         loadVideoSource();
 
-        mSh.setFixedSize(mPlayer.getVideoWidth(), mPlayer.getVideoHeight());
-        mPlayer.setDisplay(mSh);
+        if(selectVideo == 0){
+            holder.setFixedSize(mPlayer[0].getVideoWidth(), mPlayer[0].getVideoHeight());
+            mPlayer[0].setDisplay(holder);
+        }
+        else{
+            holder.setFixedSize(mPlayer[1].getVideoWidth(), mPlayer[1].getVideoHeight());
+            mPlayer[1].setDisplay(holder);
+        }
 
-//        b_mSh.setFixedSize(mPlayer2.getVideoWidth(), mPlayer2.getVideoHeight());
-//        mPlayer2.setDisplay(b_mSh);
     }
 
 
@@ -209,15 +220,15 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
     public void deletePlayer() {
 
-        if (mPlayer != null) {
+        for (int i = 0; i < 2; i++) {
+            if (mPlayer[i] != null) {
 
-            mPlayer.stop();
+                mPlayer[i].stop();
+                mPlayer[i].release();
+                mPlayer[i] = null;
 
-            mPlayer.release();
-
-            mPlayer = null;
+            }
         }
-
     }
 }
 

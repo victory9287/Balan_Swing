@@ -138,26 +138,25 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
             mPlayer.setDataSource(fileInputStream.getFD());
             fileInputStream.close();
 
-            mPlayer.setDisplay(holder);
 
             mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     if (StartNStop) {
-                        params = mPlayer.getPlaybackParams();
+                        params = mediaPlayer.getPlaybackParams();
 
                         float slow = 0.3f;
-                        mPlayer.setPlaybackParams(params.setSpeed(slow));
-                        mPlayer.start();
+                        mediaPlayer.setPlaybackParams(params.setSpeed(slow));
+                        mediaPlayer.start();
                     } else {
-                        mPlayer.pause();
+                        mediaPlayer.pause();
                     }
                 }
             });
             mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
-                    mPlayer.start();
+                    mediaPlayer.start();
                 }
             });
 
@@ -183,9 +182,8 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         loadVideoSource();
 
 
-
-
         holder.setFixedSize(mPlayer.getVideoWidth(), mPlayer.getVideoHeight());
+        mPlayer.setDisplay(holder);
 
     }
 
