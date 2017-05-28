@@ -12,6 +12,7 @@ import android.widget.TextView;
 import static com.example.victory.balan_swing.R.id.check1;
 import static com.example.victory.balan_swing.R.id.check2;
 import static com.example.victory.balan_swing.R.id.check3;
+import static com.example.victory.balan_swing.SignupActivity.font;
 
 public class SelectActivity extends AppCompatActivity {
     ImageView[] check;
@@ -53,11 +54,13 @@ public class SelectActivity extends AppCompatActivity {
 
         TextView tvStart = (TextView) findViewById(R.id.select_start);
         tvStart.setText(select_start[lang]);
+        tvStart.setTypeface(font);
 
         TextView tvSample[] = new TextView[3];
         for (int i = 0; i < 3; i++) {
             tvSample[i] = (TextView) findViewById(sampleID[i]);
             tvSample[i].setText(select_sample[i+(lang*3)]);
+            tvSample[i].setTypeface(font);
         }
         if (sample != -1) {
             check[sample].setVisibility(View.VISIBLE);

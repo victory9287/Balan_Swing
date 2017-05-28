@@ -48,7 +48,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="밸런스윙"
-            android:textSize="40sp" />
+            android:textSize="50sp" />
     </FrameLayout>
 
     <LinearLayout

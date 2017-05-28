@@ -18,6 +18,8 @@ import android.widget.Toast;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import static com.example.victory.balan_swing.SignupActivity.font;
+
 public class CompareActivity extends AppCompatActivity implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener {
     SharedPreferences pref;
     int lang, sample;
@@ -25,8 +27,7 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
     int[] profileID = {R.drawable.profile_m, R.drawable.profile_w, R.drawable.profile_m};
     String[] select_sample;
 
-    SurfaceHolder t_mSh;
-    SurfaceHolder b_mSh;
+    SurfaceHolder mSh;
     String sdRootPath;
     MediaPlayer mPlayer;
     MediaPlayer mPlayer2;
@@ -44,12 +45,12 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compare);
         init();
-        SurfaceView sv = (SurfaceView)findViewById(R.id.partnerVideo);
-//        SurfaceView sv2 = (SurfaceView)findViewById(R.id.myVideo);
-        t_mSh = sv.getHolder();
-        t_mSh.addCallback(this);
-//        b_mSh = sv2.getHolder();
-//        b_mSh.addCallback(this);
+        SurfaceView sv[] = new SurfaceView[2];
+        sv[0]= (SurfaceView)findViewById(R.id.partnerVideo);
+        sv[1] = (SurfaceView)findViewById(R.id.myVideo);
+
+        mSh = sv[0].getHolder();
+        mSh.addCallback(this);
 
 
         mView = new MYView(this);
@@ -69,6 +70,7 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         select_sample = getResources().getStringArray(R.array.select_sample);
 
         TextView compare_name = (TextView) findViewById(R.id.compare_name);
+        compare_name.setTypeface(font);
         compare_name.setText(select_sample[sample+lang*3]);
 
         ImageView compare_profile = (ImageView) findViewById(R.id.compare_profile);
@@ -80,20 +82,20 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         switch (view.getId())
         {
             case R.id.btnCompareBack:
+                deletePlayer();
                 intent = new Intent(CompareActivity.this, MenuActivity.class);
                 startActivity(intent);
-                deletePlayer();
                 finish();
                 break;
             case R.id.btnDetail:
+                deletePlayer();
                 intent = new Intent(CompareActivity.this, DetailActivity.class);
                 startActivity(intent);
-                deletePlayer();
                 break;
             case R.id.btnSetting:
+                deletePlayer();
                 intent = new Intent(CompareActivity.this, SelectActivity.class);
                 startActivity(intent);
-                deletePlayer();
                 // 설정 바꾸면 finish
                 // 아니면 그대로
         }
@@ -182,14 +184,6 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
     public void onPrepared(MediaPlayer mp) {
 
-        if (mFirst) {
-
-            mFirst = false;
-
-            mPlayer.start();
- //           mPlayer2.start();
-        }
-
     }
 
 
@@ -197,9 +191,8 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
         loadVideoSource();
 
-
-        t_mSh.setFixedSize(mPlayer.getVideoWidth(), mPlayer.getVideoHeight());
-        mPlayer.setDisplay(t_mSh);
+        mSh.setFixedSize(mPlayer.getVideoWidth(), mPlayer.getVideoHeight());
+        mPlayer.setDisplay(mSh);
 
 //        b_mSh.setFixedSize(mPlayer2.getVideoWidth(), mPlayer2.getVideoHeight());
 //        mPlayer2.setDisplay(b_mSh);
@@ -216,17 +209,13 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
     public void deletePlayer() {
 
-        if (mPlayer != null && mPlayer2 !=null) {
+        if (mPlayer != null) {
 
             mPlayer.stop();
-            mPlayer2.stop();
 
             mPlayer.release();
-            mPlayer2.release();
 
             mPlayer = null;
-            mPlayer2 = null;
-
         }
 
     }

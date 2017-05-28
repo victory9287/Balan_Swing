@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import static com.example.victory.balan_swing.SignupActivity.font;
 
 public class MenuActivity extends AppCompatActivity {
     ImageButton btnMenu1, btnMenu2, btnMenu3;
@@ -35,7 +38,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void init() {
-
+        font = Typeface.createFromAsset(getAssets(), "font.ttf");
         btnMenu1 = (ImageButton) findViewById(R.id.btnMenu1);
         btnMenu2 = (ImageButton) findViewById(R.id.btnMenu2);
         btnMenu3 = (ImageButton) findViewById(R.id.btnMenu3);
@@ -45,6 +48,12 @@ public class MenuActivity extends AppCompatActivity {
         tvCompare = (TextView) findViewById(R.id.menu_compare);
         tvLogout = (TextView) findViewById(R.id.menu_logout);
         tvName = (TextView) findViewById(R.id.accountName);
+        tvCalendar.setTypeface(font);
+        tvTitle.setTypeface(font);
+        tvPersonal.setTypeface(font);
+        tvCompare.setTypeface(font);
+        tvLogout.setTypeface(font);
+        tvName.setTypeface(font);
 
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         account = pref.getString("account", "");
@@ -119,6 +128,7 @@ public class MenuActivity extends AppCompatActivity {
         final View dialogView = inflater.inflate(R.layout.dialog_club, null);
 
         RadioGroup radioGroup = (RadioGroup) dialogView.findViewById(R.id.langCheck);
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {

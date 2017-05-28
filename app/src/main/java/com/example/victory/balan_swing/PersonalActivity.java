@@ -10,11 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import static com.example.victory.balan_swing.SignupActivity.font;
 
 public class PersonalActivity extends AppCompatActivity implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener {
 
@@ -33,10 +35,19 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
     private LinearLayout mPDRField;
     MYView mView;
 
+    Button btn1,btn2,btn3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
+
+        btn1 = (Button)findViewById(R.id.buttonSlow);
+        btn2 = (Button)findViewById(R.id.buttonReturn);
+        btn3 = (Button)findViewById(R.id.buttonFast);
+        btn1.setTypeface(font);
+        btn2.setTypeface(font);
+        btn3.setTypeface(font);
 
         SurfaceView sv = (SurfaceView) findViewById(R.id.svVideo);
         mSh = sv.getHolder();
@@ -54,7 +65,6 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
                 deletePlayer();
                 Intent intent = new Intent(PersonalActivity.this, MenuActivity.class);
                 startActivity(intent);
-                deletePlayer();
                 finish();
                 break;
         }
@@ -90,6 +100,7 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     if (StartNStop) {
                         mPlayer.start();
+                        mPlayer.pause(); // 시작부분에 멈춤!
                     } else {
                         mPlayer.pause();
                     }
@@ -112,21 +123,6 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
         }
 
     }
-
-
-    public void onPrepared(MediaPlayer mp) {
-
-        if (mFirst) {
-
-            mFirst = false;
-
-            mPlayer.start();
-
-            Toast.makeText(getApplicationContext(), "비디오 소스 로드 완료", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
 
     public void surfaceCreated(SurfaceHolder holder) {
 
@@ -215,6 +211,10 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
 
             mPlayer = null;
         }
+
+    }
+
+    public void onPrepared(MediaPlayer mediaPlayer) {
 
     }
 }

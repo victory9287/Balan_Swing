@@ -21,6 +21,8 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Random;
 
+import static com.example.victory.balan_swing.SignupActivity.font;
+
 public class MainActivity extends AppCompatActivity {
 
     static final int SIZE = 70;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             mTvDay.setGravity(Gravity.CENTER);
             mTvDay.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             mTvDay.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            mTvDay.setTypeface(font);
 
             // imageView로 바꾸기
             mTvGrade = new TextView(getApplicationContext());
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             mTvGrade.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             mTvGrade.setPadding(10,10,10,10);
             mTvGrade.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+            mTvGrade.setTypeface(font);
 
             mLLDay.addView(mTvDay);
             mLLDay.addView(mTvGrade);
@@ -167,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
         btnPrevMonth = (Button) findViewById(R.id.btnPrevMonth);
         btnNextMonth = (Button) findViewById(R.id.btnNextMonth);
         tvCurCal = (TextView) findViewById(R.id.tvCurCal);
+        tvCurCal.setTypeface(font);
 
         theLLWeeks = new LinearLayout[6];
         cDay = new CDay[6*7];
@@ -278,8 +283,10 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 7; i++) {
             tvDayofweek[i] = (TextView) findViewById(dayofweekID[i]);
             tvDayofweek[i].setText(main_dayofweek[i+(lang*7)]);
+            tvDayofweek[i].setTypeface(font);
         }
         TextView tvMatch = (TextView) findViewById(R.id.main_match);
+        tvMatch.setTypeface(font);
         tvMatch.setText(main_match[lang]);
     }
 

@@ -1,11 +1,8 @@
 package com.example.victory.balan_swing;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Bundle;
@@ -20,6 +17,8 @@ import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import static com.example.victory.balan_swing.SignupActivity.font;
 
 public class DetailActivity extends AppCompatActivity implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener {
 
@@ -51,7 +50,7 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         setContentView(R.layout.activity_detail);
         init();
 
-        SurfaceView sv2 = (SurfaceView) findViewById(R.id.detailVideo);
+        SurfaceView sv2 = (SurfaceView) findViewById(R.id.detail_myVideo);
         holder = sv2.getHolder();
         holder.addCallback(this);
 
@@ -71,6 +70,7 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         for (int i = 0; i < 4; i++) {
             step[i] = (Button) findViewById(detailID[i]);
             step[i].setText(detail_step[i+(lang*4)]);
+            step[i].setTypeface(font);
             step[i].setAlpha(0.5f);
             step[i].setBackgroundColor(Color.GRAY);
         }
@@ -81,6 +81,7 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         switch (view.getId())
         {
             case R.id.btnDetailBack:
+                deletePlayer();
                 finish();
                 break;
             case R.id.btnHome:
@@ -173,15 +174,6 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
 
 
     public void onPrepared(MediaPlayer mp) {
-
-        if (mFirst) {
-
-            mFirst = false;
-
-            mPlayer.start();
-
-            Toast.makeText(getApplicationContext(), "비디오 소스 로드 완료", Toast.LENGTH_SHORT).show();
-        }
 
     }
 

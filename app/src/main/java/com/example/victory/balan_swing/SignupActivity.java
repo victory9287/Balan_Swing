@@ -2,6 +2,7 @@ package com.example.victory.balan_swing;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,8 @@ public class SignupActivity extends AppCompatActivity {
     SharedPreferences pref;
     int lang;
 
+    static Typeface font;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +37,18 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void init() {
+        font = Typeface.createFromAsset(getAssets(), "font.ttf");
         etID = (EditText) findViewById(R.id.signup_id);
         etName = (EditText) findViewById(R.id.signup_name);
+        etID.setTypeface(font);
+        etName.setTypeface(font);
         tvOk = (TextView) findViewById(R.id.signup_ok);
+        tvOk.setTypeface(font);
         genderGroup = (RadioGroup) findViewById(R.id.signup_gender);
         btnMale = (RadioButton) findViewById(R.id.signup_male);
+        btnMale.setTypeface(font);
         btnFemale = (RadioButton) findViewById(R.id.signup_female);
+        btnFemale.setTypeface(font);
 
         genderGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

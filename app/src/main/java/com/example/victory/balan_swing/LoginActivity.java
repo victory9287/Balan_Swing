@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.ActivityCompat;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import static com.example.victory.balan_swing.R.id.btnSignup;
+import static com.example.victory.balan_swing.SignupActivity.font;
 
 public class LoginActivity extends AppCompatActivity {
     Spinner accountSpinner;
@@ -59,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
         verifyStoragePermissions(this);
 
+        font = Typeface.createFromAsset(getAssets(), "font.ttf");
         select = getResources().getStringArray(R.array.dialog_select);
         set = getResources().getStringArray(R.array.dialog_set);
         cancel = getResources().getStringArray(R.array.dialog_cancel);
@@ -84,8 +87,10 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLanguage = (ImageButton) findViewById(R.id.btnLanguage);
         tvSignup = (TextView) findViewById(R.id.login_signup);
+        tvSignup.setTypeface(font);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setEnabled(false);
+        btnLogin.setTypeface(font);
 
         accountSpinner = (Spinner) findViewById(R.id.accountSpinner);
         ArrayList<String> idList = new ArrayList<>();
