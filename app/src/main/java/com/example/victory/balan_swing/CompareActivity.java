@@ -32,13 +32,10 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
     String sdRootPath;
     MediaPlayer mPlayer[];
 
-    boolean StartNStop = true;
-
     PlaybackParams params;
 
     private LinearLayout mPDRField;
     MYView mView;
-    static int selectVideo;
 
 
     @Override
@@ -126,8 +123,7 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
             //에러 수정 코드
             FileInputStream fileInputStream[] = new FileInputStream[2];
 
-            final float slow = 0.3f;
-
+            final float slow = 0.45f;
             for(int i=0;i<2;i++){
                 mPlayer[i] = new MediaPlayer();
                 fileInputStream[i] = new FileInputStream(filePath[i]);
@@ -140,7 +136,7 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
                 mPlayer[i].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mediaPlayer) {
-                        mediaPlayer.start();
+                        //mediaPlayer.start();
                     }
                 });
             }
@@ -149,31 +145,19 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
-                    if (StartNStop) {
                         params = mediaPlayer.getPlaybackParams();
 
                         mediaPlayer.setPlaybackParams(params.setSpeed(slow));
                         mediaPlayer.start();
-                        selectVideo = 0;
-                    } else {
-                        mediaPlayer.pause();
-                    }
                 }
             });
 
             mPlayer[1].setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                int selectVideo = 1;
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
-                    if (StartNStop) {
                         params = mediaPlayer.getPlaybackParams();
 
-                        mediaPlayer.setPlaybackParams(params.setSpeed(slow));
                         mediaPlayer.start();
-                        selectVideo = 1;
-                    } else {
-                        mediaPlayer.pause();
-                    }
                 }
             });
 
@@ -195,17 +179,15 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
 
     public void surfaceCreated(SurfaceHolder holder) {
-
+        //mSh에 문제가 있어 두번째 holder에 setDisplay가 안된다.
+        //holder인자를 사용하면 두가지 다 같은 영상이 적용된다.
         loadVideoSource();
 
-        if(selectVideo == 0){
-            holder.setFixedSize(mPlayer[0].getVideoWidth(), mPlayer[0].getVideoHeight());
-            mPlayer[0].setDisplay(holder);
-        }
-        else{
+            mSh[0].setFixedSize(mPlayer[0].getVideoWidth(), mPlayer[0].getVideoHeight());
+            mPlayer[0].setDisplay(mSh[0]);
+
             holder.setFixedSize(mPlayer[1].getVideoWidth(), mPlayer[1].getVideoHeight());
             mPlayer[1].setDisplay(holder);
-        }
 
     }
 

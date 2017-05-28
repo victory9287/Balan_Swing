@@ -31,12 +31,11 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
     };
 
     Button[] step;
-    SurfaceHolder holder;
-    String sdRootPath;
-    MediaPlayer mPlayer;
 
-    boolean StartNStop = true;
-    boolean mFirst = true;
+    SurfaceView sv[];
+    SurfaceHolder mSh[];
+    String sdRootPath;
+    MediaPlayer mPlayer[];
 
     PlaybackParams params;
     static int detail_Time[];
@@ -50,16 +49,24 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         setContentView(R.layout.activity_detail);
         init();
 
-        SurfaceView sv2 = (SurfaceView) findViewById(R.id.detail_myVideo);
-        holder = sv2.getHolder();
-        holder.addCallback(this);
-
         mView = new MYView(this);
         mPDRField = (LinearLayout)findViewById(R.id.personalGraphView);
         mPDRField.addView(mView);
     }
 
     public void init() {
+
+        sv = new SurfaceView[2];
+        sv[0]= (SurfaceView)findViewById(R.id.detail_partnerVideo);
+        sv[1] = (SurfaceView)findViewById(R.id.detail_myVideo);
+
+        mSh = new SurfaceHolder[2];
+
+        for(int i=0;i<2;i++){
+            mSh[i] = sv[i].getHolder();
+            mSh[i].addCallback(this);
+        }
+
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         lang = pref.getInt("language", 0);
         sample = pref.getInt("sample", -1);
@@ -108,7 +115,7 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         }
     }
     public void clickBtn(int num){
-        detail_Time[num] = mPlayer.getCurrentPosition()*2/1000;
+        detail_Time[num] = mPlayer[1].getCurrentPosition()*2/1000;
         step[num].setAlpha(1.0f);
         step[num].setBackgroundColor(Color.BLACK);
         step[num].setTextColor(Color.WHITE);
@@ -119,49 +126,60 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
 
         sdRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
-        //자기꺼 주석 풀어서 쓰기!
-
-        //String filePath = sdRootPath+"/DCIM/Camera"+"/20170426_162440.mp4"; //영서 오빠 영상
-        //String filePath = sdRootPath+"/DCIM/Camera"+"/20170314_225610.mp4"; // 종현이 영상
-        String filePath = sdRootPath + "/DCIM/Camera"+"/Mswing.mp4"; // 넥서스 영상
+        String filePath[] = {sdRootPath + "/DCIM/Camera"+"/swing.mp4",
+                sdRootPath + "/DCIM/Camera"+"/Mswing.mp4"};// 넥서스 영상
 
 
         try {
 
-            mPlayer = new MediaPlayer();
+            mPlayer = new MediaPlayer[2];
 
             //error 1, 2147483648 나는 코드
             //mPlayer.setDataSource(filePath);
 
             //에러 수정 코드
-            FileInputStream fileInputStream = new FileInputStream(filePath);
-            mPlayer.setDataSource(fileInputStream.getFD());
-            fileInputStream.close();
+            FileInputStream fileInputStream[] = new FileInputStream[2];
+
+            final float slow = 0.45f;
+            for(int i=0;i<2;i++){
+                mPlayer[i] = new MediaPlayer();
+                fileInputStream[i] = new FileInputStream(filePath[i]);
+
+                mPlayer[i].setDataSource(fileInputStream[i].getFD());
+                fileInputStream[i].close();
 
 
-            mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+                mPlayer[i].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        //mediaPlayer.start();
+                    }
+                });
+            }
+
+            mPlayer[0].setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
-                    if (StartNStop) {
-                        params = mediaPlayer.getPlaybackParams();
+                    params = mediaPlayer.getPlaybackParams();
 
-                        float slow = 0.3f;
-                        mediaPlayer.setPlaybackParams(params.setSpeed(slow));
-                        mediaPlayer.start();
-                    } else {
-                        mediaPlayer.pause();
-                    }
-                }
-            });
-            mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
+                    mediaPlayer.setPlaybackParams(params.setSpeed(slow));
                     mediaPlayer.start();
                 }
             });
 
-            mPlayer.prepareAsync();
+            mPlayer[1].setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    params = mediaPlayer.getPlaybackParams();
 
+                    mediaPlayer.start();
+                }
+            });
+
+            mPlayer[0].prepareAsync();
+            mPlayer[1].prepareAsync();
 
         } catch (IOException e) {
 
@@ -181,9 +199,11 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
 
         loadVideoSource();
 
+        mSh[0].setFixedSize(mPlayer[0].getVideoWidth(), mPlayer[0].getVideoHeight());
+        mPlayer[0].setDisplay(mSh[0]);
 
-        holder.setFixedSize(mPlayer.getVideoWidth(), mPlayer.getVideoHeight());
-        mPlayer.setDisplay(holder);
+        holder.setFixedSize(mPlayer[1].getVideoWidth(), mPlayer[1].getVideoHeight());
+        mPlayer[1].setDisplay(holder);
 
     }
 
@@ -197,18 +217,15 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
 
     public void deletePlayer() {
 
-        if (mPlayer != null) {
+        for (int i = 0; i < 2; i++) {
+            if (mPlayer[i] != null) {
 
-            mPlayer.stop();
+                mPlayer[i].stop();
+                mPlayer[i].release();
+                mPlayer[i] = null;
 
-            mPlayer.release();
-
-            mPlayer = null;
-
+            }
         }
-
     }
-
-
 }
 
