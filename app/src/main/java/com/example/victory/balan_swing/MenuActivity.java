@@ -153,6 +153,7 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        alert.setNegativeButton(cancel[lang], null);
 
         AlertDialog dialog = alert.show();
         dialog.show();
