@@ -44,7 +44,7 @@
                     android:layout_height="50dp"
                     android:onClick="onClick"
                     android:layout_marginEnd="50dp"
-                    android:src="@drawable/playbt"
+                    android:src="@drawable/play_btn"
                     android:scaleType="centerInside"
                     android:background="@color/white"/>
 
@@ -54,7 +54,7 @@
                     android:layout_height="50dp"
                     android:layout_marginEnd="50dp"
                     android:onClick="onClick"
-                    android:src="@drawable/pausebt"
+                    android:src="@drawable/pause_btn"
                     android:scaleType="centerInside"
                     android:background="@color/white"/>
 
@@ -63,7 +63,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:onClick="onClick"
-                    android:src="@drawable/stopbt"
+                    android:src="@drawable/stop_btn"
                     android:scaleType="centerInside"
                     android:background="@color/white"/>
             </LinearLayout>
