@@ -28,73 +28,83 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_weight="1">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:orientation="horizontal"
                 android:layout_weight="1">
 
-                <Button
+                <ImageButton
                     android:id="@+id/buttonPlay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:onClick="onClick"
-                    android:text="Play" />
+                    android:layout_marginEnd="50dp"
+                    android:src="@drawable/playbt"
+                    android:scaleType="centerInside"
+                    android:background="@color/white"/>
 
-                <Button
-                    android:id="@+id/buttonStop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:onClick="onClick"
-                    android:text="Stop" />
-
-                <Button
+                <ImageButton
                     android:id="@+id/buttonPause"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="50dp"
                     android:onClick="onClick"
-                    android:text="Pause" />
+                    android:src="@drawable/pausebt"
+                    android:scaleType="centerInside"
+                    android:background="@color/white"/>
+
+                <ImageButton
+                    android:id="@+id/buttonStop"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:onClick="onClick"
+                    android:src="@drawable/stopbt"
+                    android:scaleType="centerInside"
+                    android:background="@color/white"/>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
                 android:gravity="center_horizontal"
                 android:layout_weight="1">
 
                 <Button
                     android:id="@+id/buttonSlow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
                     android:onClick="onClick"
+                    android:background="@drawable/circle"
+                    android:textColor="@color/darkgray"
                     android:text="x0.5" />
 
                 <Button
                     android:id="@+id/buttonReturn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="50dp"
                     android:onClick="onClick"
+                    android:background="@drawable/circle"
+                    android:textColor="@color/darkgray"
                     android:text="x1.0" />
 
                 <Button
                     android:id="@+id/buttonFast"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="10dp"
                     android:onClick="onClick"
+                    android:background="@drawable/circle"
+                    android:textColor="@color/darkgray"
                     android:text="x1.5" />
             </LinearLayout>
 
