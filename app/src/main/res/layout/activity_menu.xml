@@ -79,7 +79,7 @@
             <ImageButton
                 android:id="@+id/btnMenu1"
                 android:layout_gravity="center"
-                android:layout_width="150dp"
+                android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:background="?android:attr/selectableItemBackground"
@@ -108,7 +108,7 @@
             <ImageButton
                 android:id="@+id/btnMenu2"
                 android:layout_gravity="center"
-                android:layout_width="150dp"
+                android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:background="?android:attr/selectableItemBackground"
@@ -137,7 +137,7 @@
             <ImageButton
                 android:id="@+id/btnMenu3"
                 android:layout_gravity="center"
-                android:layout_width="150dp"
+                android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:background="?android:attr/selectableItemBackground"
