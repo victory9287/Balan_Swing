@@ -11,6 +11,7 @@ public class TrainingHeader {
     private String trainingTime; // 트레이닝 시간 ex)180105
     private int clubNumber; // 클럽 종류
 
+    public TrainingHeader(){}
     public TrainingHeader(String trainingSeq, int trainingFlg, String trainingYMD, String trainingTime, int clubNumber){
         this.trainingSEQ = trainingSeq;
         this.trainingFLG = trainingFlg;

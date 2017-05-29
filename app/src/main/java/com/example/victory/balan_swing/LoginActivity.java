@@ -59,15 +59,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Log.d("onCreate", "check");
 
-        verifyStoragePermissions(this);
-
-        font = Typeface.createFromAsset(getAssets(), "font.ttf");
-        select = getResources().getStringArray(R.array.dialog_select);
-        set = getResources().getStringArray(R.array.dialog_set);
-        cancel = getResources().getStringArray(R.array.dialog_cancel);
-        login = getResources().getStringArray(R.array.login_login);
-        signup = getResources().getStringArray(R.array.login_signup);
-
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         lang = pref.getInt("language", 0);
         String check = pref.getString("account", "");
@@ -76,6 +67,15 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+        verifyStoragePermissions(this);
+
+        font = Typeface.createFromAsset(getAssets(), "font.ttf");
+        select = getResources().getStringArray(R.array.dialog_select);
+        set = getResources().getStringArray(R.array.dialog_set);
+        cancel = getResources().getStringArray(R.array.dialog_cancel);
+        login = getResources().getStringArray(R.array.login_login);
+        signup = getResources().getStringArray(R.array.login_signup);
 
         dbHandler = new MyDBHandler(this, null, null, 1);
         accountList = dbHandler.loadAccount();

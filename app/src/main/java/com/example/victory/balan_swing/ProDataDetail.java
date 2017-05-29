@@ -6,11 +6,12 @@ package com.example.victory.balan_swing;
 
 public class ProDataDetail {
     private String proID;
-    private String detailSEQ;
+    private int detailSEQ;
     private int rightWeight;
     private int leftWeight;
 
-    public ProDataDetail(String proID, String detailSEQ, int rightWeight, int leftWeight){
+    public ProDataDetail(){}
+    public ProDataDetail(String proID, int detailSEQ, int rightWeight, int leftWeight){
         this.proID = proID;
         this.detailSEQ = detailSEQ;
         this.rightWeight = rightWeight;
@@ -21,7 +22,7 @@ public class ProDataDetail {
         return proID;
     }
 
-    public String getDetailSEQ() {
+    public int getDetailSEQ() {
         return detailSEQ;
     }
 
@@ -37,7 +38,7 @@ public class ProDataDetail {
         this.proID = proID;
     }
 
-    public void setDetailSEQ(String detailSEQ) {
+    public void setDetailSEQ(int detailSEQ) {
         this.detailSEQ = detailSEQ;
     }
 
