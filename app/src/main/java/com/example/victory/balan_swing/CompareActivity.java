@@ -27,38 +27,42 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
     int[] profileID = {R.drawable.profile_m, R.drawable.profile_w, R.drawable.profile_m};
     String[] select_sample;
 
-    SurfaceHolder mSh;
+    SurfaceView sv[];
+    SurfaceHolder mSh[];
     String sdRootPath;
-    MediaPlayer mPlayer;
-    MediaPlayer mPlayer2;
-
-    boolean StartNStop = true;
-    boolean mFirst = true;
+    MediaPlayer mPlayer[];
 
     PlaybackParams params;
 
     private LinearLayout mPDRField;
     MYView mView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compare);
         init();
-        SurfaceView sv[] = new SurfaceView[2];
+
+    }
+
+    public void init() {
+
+        sv = new SurfaceView[2];
         sv[0]= (SurfaceView)findViewById(R.id.partnerVideo);
         sv[1] = (SurfaceView)findViewById(R.id.myVideo);
 
-        mSh = sv[0].getHolder();
-        mSh.addCallback(this);
+        mSh = new SurfaceHolder[2];
+
+        for(int i=0;i<2;i++){
+            mSh[i] = sv[i].getHolder();
+            mSh[i].addCallback(this);
+        }
 
 
         mView = new MYView(this);
         mPDRField = (LinearLayout)findViewById(R.id.personalGraphView);
         mPDRField.addView(mView);
-    }
-
-    public void init() {
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         lang = pref.getInt("language", 0);
         sample = pref.getInt("sample", -1);
@@ -82,20 +86,20 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         switch (view.getId())
         {
             case R.id.btnCompareBack:
-                deletePlayer();
                 intent = new Intent(CompareActivity.this, MenuActivity.class);
                 startActivity(intent);
+                deletePlayer();
                 finish();
                 break;
             case R.id.btnDetail:
-                deletePlayer();
                 intent = new Intent(CompareActivity.this, DetailActivity.class);
                 startActivity(intent);
+                deletePlayer();
                 break;
             case R.id.btnSetting:
-                deletePlayer();
                 intent = new Intent(CompareActivity.this, SelectActivity.class);
                 startActivity(intent);
+                deletePlayer();
                 // 설정 바꾸면 finish
                 // 아니면 그대로
         }
@@ -106,72 +110,59 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         sdRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
         String filePath[] = {sdRootPath + "/DCIM/Camera"+"/swing.mp4",
-            sdRootPath + "/DCIM/Camera"+"/Mswing.mp4"};// 넥서스 영상
+                sdRootPath + "/DCIM/Camera"+"/Mswing.mp4"};// 넥서스 영상
 
 
         try {
 
-            mPlayer = new MediaPlayer();
-            mPlayer2 = new MediaPlayer();
+            mPlayer = new MediaPlayer[2];
 
             //error 1, 2147483648 나는 코드
             //mPlayer.setDataSource(filePath);
 
             //에러 수정 코드
-            FileInputStream fileInputStream1;
-            FileInputStream fileInputStream2;
+            FileInputStream fileInputStream[] = new FileInputStream[2];
 
-                fileInputStream1 = new FileInputStream(filePath[0]);
+            final float slow = 0.45f;
+            for(int i=0;i<2;i++){
+                mPlayer[i] = new MediaPlayer();
+                fileInputStream[i] = new FileInputStream(filePath[i]);
 
-                mPlayer.setDataSource(fileInputStream1.getFD());
-                fileInputStream1.close();
-
-                fileInputStream2 = new FileInputStream(filePath[1]);
-
-                mPlayer2.setDataSource(fileInputStream2.getFD());
-                fileInputStream2.close();
+                mPlayer[i].setDataSource(fileInputStream[i].getFD());
+                fileInputStream[i].close();
 
 
 
-            final float slow = 0.3f;
+                mPlayer[i].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        //mediaPlayer.start();
+                    }
+                });
+            }
 
-            mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            mPlayer[0].setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
-                    if (StartNStop) {
-                        params = mPlayer.getPlaybackParams();
+                    params = mediaPlayer.getPlaybackParams();
 
-                        mPlayer.setPlaybackParams(params.setSpeed(slow));
-                        mPlayer.start();
-                    } else {
-                        mPlayer.pause();
-                    }
+                    mediaPlayer.setPlaybackParams(params.setSpeed(slow));
+                    mediaPlayer.start();
                 }
             });
 
-            mPlayer2.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            mPlayer[1].setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
-                    if (StartNStop) {
-                        params = mPlayer2.getPlaybackParams();
+                    params = mediaPlayer.getPlaybackParams();
 
-                        mPlayer2.setPlaybackParams(params.setSpeed(slow));
-                        mPlayer2.start();
-                    } else {
-                        mPlayer2.pause();
-                    }
+                    mediaPlayer.start();
                 }
             });
 
-            mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    mPlayer.start();
-                }
-            });
-            mPlayer.prepareAsync();
-//            mPlayer2.prepareAsync();
-
+            mPlayer[0].prepareAsync();
+            mPlayer[1].prepareAsync();
 
         } catch (IOException e) {
 
@@ -188,14 +179,16 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
 
     public void surfaceCreated(SurfaceHolder holder) {
-
+        //mSh에 문제가 있어 두번째 holder에 setDisplay가 안된다.
+        //holder인자를 사용하면 두가지 다 같은 영상이 적용된다.
         loadVideoSource();
 
-        mSh.setFixedSize(mPlayer.getVideoWidth(), mPlayer.getVideoHeight());
-        mPlayer.setDisplay(mSh);
+        mSh[0].setFixedSize(mPlayer[0].getVideoWidth(), mPlayer[0].getVideoHeight());
+        mPlayer[0].setDisplay(mSh[0]);
 
-//        b_mSh.setFixedSize(mPlayer2.getVideoWidth(), mPlayer2.getVideoHeight());
-//        mPlayer2.setDisplay(b_mSh);
+        holder.setFixedSize(mPlayer[1].getVideoWidth(), mPlayer[1].getVideoHeight());
+        mPlayer[1].setDisplay(holder);
+
     }
 
 
@@ -209,15 +202,14 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
     public void deletePlayer() {
 
-        if (mPlayer != null) {
+        for (int i = 0; i < 2; i++) {
+            if (mPlayer[i] != null) {
 
-            mPlayer.stop();
+                mPlayer[i].stop();
+                mPlayer[i].release();
+                mPlayer[i] = null;
 
-            mPlayer.release();
-
-            mPlayer = null;
+            }
         }
-
     }
 }
-
