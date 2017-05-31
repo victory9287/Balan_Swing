@@ -102,8 +102,11 @@ public class SignupActivity extends AppCompatActivity {
             }
         }
         else if (view.getId() == R.id.btnSignupBack){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            String check = pref.getString("account", "");
+            if (check.length()>0){
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+            }
             finish();
         }
     }

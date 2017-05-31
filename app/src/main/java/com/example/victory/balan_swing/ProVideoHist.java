@@ -9,6 +9,7 @@ public class ProVideoHist {
     private String filePath;
     private String fileName;
 
+    public ProVideoHist(){}
     public ProVideoHist(String proID, String filePath, String fileName){
         this.proID = proID;
         this.filePath = filePath;

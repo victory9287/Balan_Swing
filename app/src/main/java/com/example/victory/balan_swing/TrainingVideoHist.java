@@ -9,6 +9,7 @@ public class TrainingVideoHist {
     private String filePath;
     private String fileName;
 
+    public TrainingVideoHist(){}
     public TrainingVideoHist(String trainingSEQ, String filePath, String fileName) {
         this.trainingSEQ = trainingSEQ;
         this.filePath = filePath;

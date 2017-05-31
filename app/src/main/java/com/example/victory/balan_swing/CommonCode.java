@@ -8,6 +8,7 @@ public class CommonCode {
     private int divCode; // 구분코드
     private int taskCode; // 업무코드 01: 클럽드라이버, 07:7번아이언
 
+    public CommonCode(){}
     public CommonCode(int divCode, int taskCode){
         this.divCode = divCode;
         this.taskCode = taskCode;

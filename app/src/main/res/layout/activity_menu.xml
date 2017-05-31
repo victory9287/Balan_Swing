@@ -72,7 +72,8 @@
                 android:id="@+id/menu_calendar"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:gravity="center"
+                android:gravity="center|bottom"
+                android:paddingBottom="10dp"
                 android:text="달력"
                 android:textSize="20sp" />
 
@@ -101,7 +102,8 @@
                 android:id="@+id/menu_personal"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:gravity="center"
+                android:gravity="center|bottom"
+                android:paddingBottom="10dp"
                 android:text="개인연습"
                 android:textSize="20sp" />
 
@@ -130,7 +132,8 @@
                 android:id="@+id/menu_compare"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:gravity="center"
+                android:gravity="center|bottom"
+                android:paddingBottom="10dp"
                 android:text="비교연습"
                 android:textSize="20sp" />
 
