@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
+import android.view.animation.Animation;
 
 /**
  * Created by victory on 2017-05-24.
@@ -15,6 +16,7 @@ public class MYView extends View {
     int height;
     int w10;
     int h10;
+    Animation animation;
 
     public MYView(Context context) {
         super(context);
@@ -29,6 +31,7 @@ public class MYView extends View {
     }
 
     public void onDraw(Canvas canvas) {
+        //animation.setDuration();
         Paint greenPaint = new Paint();
         greenPaint.setColor(0xff00964c);
         greenPaint.setStrokeWidth(11);

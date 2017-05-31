@@ -14,7 +14,16 @@
             android:id="@+id/GraphView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            pointColor="#ec4800" pointSize="8dp"
-            lineColor="#0073cc" lineThickness="2dp"/>
+            pointColor="@color/mildBlue" pointSize="8dp"
+            lineColor="@color/mildBlue" lineThickness="2dp"/>
+        <TextView
+            android:text="B+"
+            android:textColor="@color/mildRed"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="40dp"
+            android:layout_gravity="bottom|right"
+            android:textSize="60sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </FrameLayout>
 </LinearLayout>
