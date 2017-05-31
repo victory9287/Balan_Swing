@@ -94,11 +94,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         //TrainingDetail
         String CREATE_T_DETAIL = "create table if not exists "+TABLE_T_DETAIL+"("
-                +T_HEADER_SEQ+" text primary key,"
-                +T_DETAIL_SEQ+" int primary key,"
+                +T_HEADER_SEQ+" text,"
+                +T_DETAIL_SEQ+" int,"
                 +T_DETAIL_REGTIME+" text,"
                 +T_DETAIL_R_WEIGHT+" int,"
-                +T_DETAIL_L_WEIGHT+" int"
+                +T_DETAIL_L_WEIGHT+" int,"
+                +"primary key("+T_HEADER_SEQ+","+T_DETAIL_SEQ+")"
                 +")";
         db.execSQL(CREATE_T_DETAIL);
 
@@ -120,10 +121,11 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         //ProDataDetail
         String CREATE_P_DETAIL = "create table if not exists "+TABLE_P_DETAIL+"("
-                +P_HEADER_ID+" text primary key,"
-                +P_DETAIL_SEQ+" text primary key,"
+                +P_HEADER_ID+" text,"
+                +P_DETAIL_SEQ+" text,"
                 +P_DETAIL_R_WEIGHT+" integer,"
-                +P_DETAIL_L_WEIGHT+" integer"
+                +P_DETAIL_L_WEIGHT+" integer,"
+                +"primary key("+P_HEADER_ID+","+P_DETAIL_SEQ+")"
                 +")";
         db.execSQL(CREATE_P_DETAIL);
 
@@ -137,8 +139,9 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         //CommonCode
         String CREATE_COMMON_CODE = "create table if not exists "+TABLE_COMMON_CODE+"("
-                +COMMON_DIV_CODE+" integer primary key,"
-                +COMMON_TASK_CODE+" integer primary key"
+                +COMMON_DIV_CODE+" integer,"
+                +COMMON_TASK_CODE+" integer,"
+                +"primary key("+COMMON_DIV_CODE+","+COMMON_TASK_CODE+")"
                 +")";
         db.execSQL(CREATE_COMMON_CODE);
 
