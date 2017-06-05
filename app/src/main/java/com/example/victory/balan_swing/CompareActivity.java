@@ -110,7 +110,7 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         sdRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
         String filePath[] = {sdRootPath + "/DCIM/Camera"+"/swing.mp4",
-            sdRootPath + "/DCIM/Camera"+"/Mswing.mp4"};// 넥서스 영상
+                sdRootPath + "/DCIM/Camera"+"/Mswing.mp4"};// 넥서스 영상
 
 
         try {
@@ -145,19 +145,19 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
-                        params = mediaPlayer.getPlaybackParams();
+                    params = mediaPlayer.getPlaybackParams();
 
-                        mediaPlayer.setPlaybackParams(params.setSpeed(slow));
-                        mediaPlayer.start();
+                    mediaPlayer.setPlaybackParams(params.setSpeed(slow));
+                    mediaPlayer.start();
                 }
             });
 
             mPlayer[1].setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
-                        params = mediaPlayer.getPlaybackParams();
+                    params = mediaPlayer.getPlaybackParams();
 
-                        mediaPlayer.start();
+                    mediaPlayer.start();
                 }
             });
 
@@ -183,11 +183,11 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         //holder인자를 사용하면 두가지 다 같은 영상이 적용된다.
         loadVideoSource();
 
-            mSh[0].setFixedSize(mPlayer[0].getVideoWidth(), mPlayer[0].getVideoHeight());
-            mPlayer[0].setDisplay(mSh[0]);
+        mSh[0].setFixedSize(mPlayer[0].getVideoWidth(), mPlayer[0].getVideoHeight());
+        mPlayer[0].setDisplay(mSh[0]);
 
-            holder.setFixedSize(mPlayer[1].getVideoWidth(), mPlayer[1].getVideoHeight());
-            mPlayer[1].setDisplay(holder);
+        holder.setFixedSize(mPlayer[1].getVideoWidth(), mPlayer[1].getVideoHeight());
+        mPlayer[1].setDisplay(holder);
 
     }
 
@@ -213,4 +213,3 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         }
     }
 }
-
