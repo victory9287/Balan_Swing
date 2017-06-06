@@ -53,18 +53,31 @@
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <Button
+            <ImageButton
                 android:id="@+id/btnHome"
                 android:layout_width="45dp"
-                android:layout_height="wrap_content"
-                android:onClick="syncBtnClick"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="btnClick"
+                android:padding="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_home"
                 android:text="■" />
-            <Button
-                android:id="@+id/btnSyncBack"
+
+            <ImageButton
+                android:paddingTop="7dp"
+                android:paddingRight="7dp"
+                android:paddingBottom="7dp"
+                android:paddingLeft="3dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/img_back"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:id="@+id/btnDetailBack"
                 android:layout_width="45dp"
-                android:layout_height="wrap_content"
-                android:onClick="syncBtnClick"
-                android:text="◀" />
+                android:layout_height="match_parent"
+                android:onClick="btnClick"/>
         </LinearLayout>
 
         <LinearLayout
