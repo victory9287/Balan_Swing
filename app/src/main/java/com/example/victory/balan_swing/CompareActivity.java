@@ -6,17 +6,27 @@ import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.example.victory.balan_swing.SignupActivity.font;
 
@@ -37,8 +47,11 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
     PlaybackParams params;
 
-    private LinearLayout mPDRField;
-    MYView mView;
+    BarChart chart;
+    ArrayList<BarEntry> BARENTRY;
+    ArrayList<String> BarEntryLabels;
+    BarDataSet Bardataset;
+    BarData BARDATA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +65,82 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         mSh = sv[0].getHolder();
         mSh.addCallback(this);
 
+        chart = (BarChart) findViewById(R.id.barchart);
 
-        mView = new MYView(this);
-        mPDRField = (LinearLayout)findViewById(R.id.personalGraphView);
-        mPDRField.addView(mView);
+        BARENTRY = new ArrayList<>();
+        BarEntryLabels = new ArrayList<String>();
+
+        AddvaluesToBarEntryLabels();
+
+        Bardataset = new BarDataSet(BARENTRY, "FOOT");
+        BARDATA = new BarData(BarEntryLabels, Bardataset);
+
+        BarThread thread = new BarThread();
+        //thread.setDaemon(true);
+        thread.start();
+
+
+        //BarchartDesign
+        chart.setDoubleTapToZoomEnabled(false);
+        chart.setTouchEnabled(false);
+
+        //chart.animateY(1000);
+        chart.setMaxVisibleValueCount(100);
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setDrawGridLines(false);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setPosition(XAxis.XAxisPosition.TOP);
+        xAxis.setTextSize(10f);
+
+        YAxis yAxis = chart.getAxisLeft();
+        yAxis.setAxisMaxValue(0f);
+        yAxis.setAxisMinValue(-100f);
+
+        chart.getAxisRight().setEnabled(false);
+        chart.getAxisLeft().setEnabled(false);
+
     }
+
+    class BarThread extends Thread{
+        @Override
+        public void run(){
+            while(true){
+
+                try{
+                    handler.sendEmptyMessage(0);
+                    Thread.sleep(20);
+                    handler.sendEmptyMessage(1);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            if(msg.what == 0)
+                updateThread1();
+            else if(msg.what == 1)
+                updateThread2();
+        }
+    };
+    private void updateThread1(){
+        BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),0));
+        BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),1));
+        chart.setData(BARDATA);
+        Log.d("check", "aaa");
+    }
+    private void updateThread2(){
+        Log.d("check", "lll");
+        chart.clear();
+    }
+    public void AddvaluesToBarEntryLabels(){
+        BarEntryLabels.add("LEFT");
+        BarEntryLabels.add("RIGHT");
+    }
+
 
     public void init() {
         pref = getSharedPreferences("pref", MODE_PRIVATE);

@@ -12,11 +12,18 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.example.victory.balan_swing.SignupActivity.font;
 
@@ -41,8 +48,12 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
     PlaybackParams params;
     static int detail_Time[];
 
-    private LinearLayout mPDRField;
-    MYView mView;
+    BarChart chart;
+    ArrayList<BarEntry> BARENTRY;
+    ArrayList<String> BarEntryLabels;
+    BarDataSet Bardataset;
+    BarData BARDATA;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +65,44 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         holder = sv2.getHolder();
         holder.addCallback(this);
 
-        mView = new MYView(this);
-        mPDRField = (LinearLayout)findViewById(R.id.personalGraphView);
-        mPDRField.addView(mView);
+        chart = (BarChart) findViewById(R.id.barchart);
+        BARENTRY = new ArrayList<>();
+        BarEntryLabels = new ArrayList<String>();
+
+        AddValuesToBARENTRY();
+        AddvaluesToBarEntryLabels();
+
+        Bardataset = new BarDataSet(BARENTRY, "FOOT");
+        BARDATA = new BarData(BarEntryLabels, Bardataset);
+
+        chart.setDoubleTapToZoomEnabled(false);
+        chart.setTouchEnabled(false);
+
+        chart.setData(BARDATA);
+        chart.animateY(3000);
+        chart.setMaxVisibleValueCount(100);
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setDrawGridLines(false);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setPosition(XAxis.XAxisPosition.TOP);
+        xAxis.setTextSize(10f);
+
+        YAxis yAxis = chart.getAxisLeft();
+        yAxis.setAxisMaxValue(0f);
+        yAxis.setAxisMinValue(-100f);
+
+        chart.getAxisRight().setEnabled(false);
+        chart.getAxisLeft().setEnabled(false);
+
+    }
+    public void AddValuesToBARENTRY(){
+        BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),0));
+        BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),1));
+    }
+    public void AddvaluesToBarEntryLabels(){
+        BarEntryLabels.add("LEFT");
+        BarEntryLabels.add("RIGHT");
     }
 
     public void init() {
