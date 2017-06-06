@@ -46,8 +46,6 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
     private LinearLayout mPDRField;
     MYView mView;
 
-    SurfaceHolder.Callback callback;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,26 +101,6 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         ImageView compare_profile = (ImageView) findViewById(R.id.compare_profile);
         compare_profile.setImageResource(profileID[sample]);
 
-//        callback = new SurfaceHolder.Callback() {
-//            @Override
-//            public void surfaceCreated(SurfaceHolder holder) {
-//                loadVideoSource2();
-//
-//                holder.setFixedSize(mPlayer2.getVideoWidth(), mPlayer2.getVideoHeight());
-//                Log.d("check", "사이즈 : "+mPlayer2.getVideoWidth()+", "+mPlayer2.getVideoHeight());
-//                mPlayer2.setDisplay(holder);
-//            }
-//
-//            @Override
-//            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-//
-//            }
-//
-//            @Override
-//            public void surfaceDestroyed(SurfaceHolder holder) {
-//
-//            }
-//        };
     }
 
     public void viewOverlap(int num) {
@@ -179,6 +157,8 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
                 }
 
+                holder.setFixedSize(mPlayer2.getVideoWidth(), mPlayer2.getVideoHeight());
+                Log.d("check", "사이즈 : "+mPlayer2.getVideoWidth()+", "+mPlayer2.getVideoHeight());
                 mPlayer2.setDisplay(holder);
             }
 

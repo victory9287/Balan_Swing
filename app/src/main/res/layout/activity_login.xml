@@ -33,13 +33,19 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/accountSpinner"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:spinnerMode="dialog">
+            <LinearLayout
+                android:background="@drawable/layout_gray_stroke"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Spinner
+                    android:id="@+id/accountSpinner"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:spinnerMode="dialog">
 
-            </Spinner>
+                </Spinner>
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/btnLogin"

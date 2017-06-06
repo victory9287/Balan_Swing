@@ -27,11 +27,14 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
     SurfaceHolder mSh;
     String sdRootPath;
     MediaPlayer mPlayer;
+    String filePath;
 
     SurfaceView sv2;
     SurfaceHolder mSh2;
     MediaPlayer mPlayer2;
     String filePath2;
+
+    String recordedPath ="";
 
     boolean StartNStop = true;
     boolean mFirst = true;
@@ -46,10 +49,13 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
 
     Button btn1,btn2,btn3;
 
+    static final int REQUEST_VIDEO_CAPTURE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
+        Log.d("check", "onCreate");
 
         btn1 = (Button)findViewById(R.id.buttonSlow);
         btn2 = (Button)findViewById(R.id.buttonReturn);
@@ -74,13 +80,18 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
     }
 
     public void btnClick(View view) {
+        Intent intent;
         switch (view.getId())
         {
             case R.id.btnPersonalBack:
                 deletePlayer();
-                Intent intent = new Intent(PersonalActivity.this, MenuActivity.class);
+                intent = new Intent(PersonalActivity.this, MenuActivity.class);
                 startActivity(intent);
                 finish();
+                break;
+            case R.id.btnCamera:
+                intent = new Intent(this, CameraActivity.class);
+                startActivityForResult(intent, REQUEST_VIDEO_CAPTURE);
                 break;
         }
     }
@@ -93,8 +104,11 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
 
         //String filePath = sdRootPath+"/DCIM/Camera"+"/20170426_162440.mp4"; //영서 오빠 영상
         //String filePath = sdRootPath+"/DCIM/Camera"+"/20170314_225610.mp4"; // 종현이 영상
-        String filePath = sdRootPath + "/DCIM/Camera"+"/Mswing.mp4"; // 넥서스 영상
-
+        filePath = sdRootPath + "/DCIM/Camera"+"/Mswing.mp4"; // 넥서스 영상
+        if (!recordedPath.equals("")) {
+            Log.d("check", "filePath:"+filePath);
+            filePath = recordedPath;
+        }
 
         try {
 
@@ -157,7 +171,7 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
 
                     //에러 수정 코드
                     FileInputStream fileInputStream;
-                    Log.d("check", filePath2);
+
                     mPlayer2 = new MediaPlayer();
                     mPlayer2.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
@@ -165,6 +179,11 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
 
                         }
                     });
+                    if (!recordedPath.equals("")) {
+                        filePath2 = recordedPath;
+                        Log.d("check", "filePath2:"+filePath2);
+                    }
+                    Log.d("check", filePath2);
                     fileInputStream = new FileInputStream(filePath2);
 
                     mPlayer2.setDataSource(fileInputStream.getFD());
@@ -300,5 +319,14 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
 
     public void onPrepared(MediaPlayer mediaPlayer) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
+            recordedPath = data.getStringExtra("path");
+            Log.d("check", recordedPath);
+        }
     }
 }

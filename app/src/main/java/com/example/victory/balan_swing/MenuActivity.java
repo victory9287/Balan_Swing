@@ -30,6 +30,8 @@ public class MenuActivity extends AppCompatActivity {
 
     MyDBHandler dbHandler;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

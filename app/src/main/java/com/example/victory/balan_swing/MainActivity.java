@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         public void clearSel() { mSel = false; }
     };
 
-    Button btnMainBack;
+    ImageButton btnMainBack;
 
     LinearLayout viewCalendar;
     LinearLayout viewDayOftheWeek;
@@ -176,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         lang = pref.getInt("language", 0);
 
-        btnMainBack = (Button) findViewById(R.id.btnMainBack);
+        btnMainBack = (ImageButton) findViewById(R.id.btnMainBack);
 
         viewCalendar = (LinearLayout) findViewById(R.id.calendarLayout);
         viewDayOftheWeek = (LinearLayout) findViewById(R.id.DayOftheWeek);
@@ -191,6 +192,15 @@ public class MainActivity extends AppCompatActivity {
         onClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (v instanceof ImageButton){
+                    ImageButton tmpImgBtn = (ImageButton) v;
+                    switch (tmpImgBtn.getId())
+                    {
+                        case R.id.btnMainBack:
+                            finish();
+                            break;
+                    }
+                }
                 if (v instanceof Button)
                 {
                     Button tmpBtn = (Button) v;
@@ -211,9 +221,6 @@ public class MainActivity extends AppCompatActivity {
                                 theYear++;
                                 theMonth = 0;
                             }
-                            break;
-                        case R.id.btnMainBack:
-                            finish();
                             break;
                     }
 

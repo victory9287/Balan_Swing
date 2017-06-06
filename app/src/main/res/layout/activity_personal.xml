@@ -9,10 +9,10 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="6">
@@ -22,8 +22,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp" />
-
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/btnCamera"
+                android:onClick="btnClick"
+                android:backgroundTint="@color/colorAccent"
+                android:src="@drawable/img_camera"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="right|bottom"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -116,7 +127,7 @@
         android:background="@color/colorSky"
         android:orientation="vertical"
         android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -125,12 +136,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
+            <ImageButton
+                android:padding="7dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/img_back"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 android:id="@+id/btnPersonalBack"
                 android:layout_width="45dp"
                 android:layout_height="wrap_content"
-                android:onClick="btnClick"
-                android:text="◀" />
+                android:onClick="btnClick" />
         </LinearLayout>
 
         <LinearLayout
