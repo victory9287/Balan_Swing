@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import static com.example.victory.balan_swing.SignupActivity.font;
 
+
 public class CompareActivity extends AppCompatActivity implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener {
     SharedPreferences pref;
     int lang, sample;

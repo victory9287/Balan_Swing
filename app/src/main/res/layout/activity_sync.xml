@@ -20,20 +20,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <SurfaceView
-                android:id="@+id/detail_partnerVideo"
+            <ImageView
+                android:id="@+id/pro_img"
+                android:padding="10dp"
+                android:src="@drawable/address"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:layout_margin="10dp" />
-
-            <SurfaceView
-                android:id="@+id/detail_myVideo"
+                android:scaleType="fitXY"/>
+            <FrameLayout
+                android:id="@+id/videoSurfaceContainer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1">
+            <SurfaceView
+                android:id="@+id/sync_myVideo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp" />
+            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -52,13 +57,13 @@
                 android:id="@+id/btnHome"
                 android:layout_width="45dp"
                 android:layout_height="wrap_content"
-                android:onClick="btnClick"
+                android:onClick="syncBtnClick"
                 android:text="■" />
             <Button
-                android:id="@+id/btnDetailBack"
+                android:id="@+id/btnSyncBack"
                 android:layout_width="45dp"
                 android:layout_height="wrap_content"
-                android:onClick="btnClick"
+                android:onClick="syncBtnClick"
                 android:text="◀" />
         </LinearLayout>
 
@@ -80,20 +85,20 @@
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/btnDetail1"
+                    android:id="@+id/btnSync1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:onClick="btnClick"
+                    android:onClick="syncBtnClick"
                     android:text="어드레스"
                     android:textSize="20sp" />
 
                 <Button
-                    android:id="@+id/btnDetail2"
+                    android:id="@+id/btnSync2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:onClick="btnClick"
+                    android:onClick="syncBtnClick"
                     android:text="탑오브스윙"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -105,30 +110,24 @@
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/btnDetail3"
+                    android:id="@+id/btnSync3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:onClick="btnClick"
+                    android:onClick="syncBtnClick"
                     android:text="임팩트"
                     android:textSize="20sp" />
 
                 <Button
-                    android:id="@+id/btnDetail4"
+                    android:id="@+id/btnSync4"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:onClick="btnClick"
+                    android:onClick="syncBtnClick"
                     android:text="팔로우스루"
                     android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
-        <Button
-            android:id="@+id/saveTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="시간값 저장"
-            android:onClick="btnClick"/>
         <LinearLayout
             android:id="@+id/imageView4"
             android:layout_width="match_parent"

@@ -13,7 +13,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -38,10 +37,13 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
     MediaPlayer mPlayer[];
 
     PlaybackParams params;
-    static int detail_Time[];
+    static int detail_Time[]; //= {8000, 27000, 35000, 53000};
+    static int detail_Time_pro[] = {2000, 30667, 46000, 65000};
 
     private LinearLayout mPDRField;
     MYView mView;
+
+    Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,37 +112,35 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
             case R.id.btnDetail4:
                 clickBtn(3);
                 break;
-
-
+            case R.id.saveTime:
+                if(thread!=null){
+                }
+                Intent syncIntent = new Intent(this, SyncActivity.class);
+                startActivity(syncIntent);
+                break;
         }
     }
     public void clickBtn(int num){
-        detail_Time[num] = mPlayer[1].getCurrentPosition()*2/1000;
+        detail_Time[num] = mPlayer[0].getCurrentPosition(); //1000으로 나누어줘야 초단위
         step[num].setAlpha(1.0f);
         step[num].setBackgroundColor(Color.BLACK);
         step[num].setTextColor(Color.WHITE);
 
-        Toast.makeText(this, detail_Time[num]+"초", Toast.LENGTH_SHORT).show();
+
     }
     public void loadVideoSource() {
 
         sdRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
-        String filePath[] = {sdRootPath + "/DCIM/Camera"+"/swing.mp4",
-                sdRootPath + "/DCIM/Camera"+"/Mswing.mp4"};// 넥서스 영상
-
+        String filePath[] = {sdRootPath + "/DCIM/Camera"+"/newSwing.mp4",
+                sdRootPath + "/DCIM/Camera"+"/newMswing.mp4"};// 넥서스 영상
 
         try {
 
             mPlayer = new MediaPlayer[2];
 
-            //error 1, 2147483648 나는 코드
-            //mPlayer.setDataSource(filePath);
-
-            //에러 수정 코드
             FileInputStream fileInputStream[] = new FileInputStream[2];
 
-            final float slow = 0.45f;
             for(int i=0;i<2;i++){
                 mPlayer[i] = new MediaPlayer();
                 fileInputStream[i] = new FileInputStream(filePath[i]);
@@ -164,7 +164,7 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     params = mediaPlayer.getPlaybackParams();
 
-                    mediaPlayer.setPlaybackParams(params.setSpeed(slow));
+                    //mediaPlayer.setPlaybackParams(params.setSpeed(0.1f));
                     mediaPlayer.start();
                 }
             });
@@ -173,7 +173,7 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     params = mediaPlayer.getPlaybackParams();
-
+                    //mediaPlayer.setPlaybackParams(params.setSpeed(0.2f));
                     mediaPlayer.start();
                 }
             });
@@ -199,11 +199,17 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
 
         loadVideoSource();
 
-        mSh[0].setFixedSize(mPlayer[0].getVideoWidth(), mPlayer[0].getVideoHeight());
-        mPlayer[0].setDisplay(mSh[0]);
+        if(thread==null){
 
-        holder.setFixedSize(mPlayer[1].getVideoWidth(), mPlayer[1].getVideoHeight());
-        mPlayer[1].setDisplay(holder);
+            holder.setFixedSize(mPlayer[0].getVideoWidth(), mPlayer[0].getVideoHeight());
+            mPlayer[0].setDisplay(holder);
+            thread = new Thread();
+            thread.start();
+        }
+        else{
+            holder.setFixedSize(mPlayer[1].getVideoWidth(), mPlayer[1].getVideoHeight());
+            mPlayer[1].setDisplay(holder);
+        }
 
     }
 
@@ -228,4 +234,3 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         }
     }
 }
-
