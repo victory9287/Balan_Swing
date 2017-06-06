@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="com.example.victory.balan_swing.CompareActivity">
+    tools:context="com.example.victory.balan_swing.DetailActivity">
+
     <LinearLayout
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
@@ -19,20 +20,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <SurfaceView
-                android:id="@+id/partnerVideo"
+            <ImageView
+                android:id="@+id/pro_img"
+                android:padding="10dp"
+                android:src="@drawable/address"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:layout_margin="10dp" />
-
-            <SurfaceView
-                android:id="@+id/myVideo"
+                android:scaleType="fitXY"/>
+            <FrameLayout
+                android:id="@+id/videoSurfaceContainer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1">
+            <SurfaceView
+                android:id="@+id/sync_myVideo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp" />
+            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -47,42 +53,18 @@
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/btnSetting"
+            <Button
+                android:id="@+id/btnHome"
                 android:layout_width="45dp"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:background="?android:attr/selectableItemBackground"
-                android:onClick="btnClick"
-                android:padding="7dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/setting"
+                android:layout_height="wrap_content"
+                android:onClick="syncBtnClick"
+                android:text="■" />
+            <Button
+                android:id="@+id/btnSyncBack"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:onClick="syncBtnClick"
                 android:text="◀" />
-
-            <ImageButton
-                android:id="@+id/btnDetail"
-                android:layout_width="45dp"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:background="?android:attr/selectableItemBackground"
-                android:onClick="btnClick"
-                android:padding="7dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/img_star"
-                android:text="★" />
-
-            <ImageButton
-                android:paddingRight="7dp"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:src="@drawable/img_back"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:id="@+id/btnCompareBack"
-                android:layout_width="43dp"
-                android:layout_height="match_parent"
-                android:onClick="btnClick"/>
         </LinearLayout>
 
         <LinearLayout
@@ -91,28 +73,61 @@
             android:layout_height="0dp"
             android:layout_weight="3"
             android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp">
+            android:paddingBottom="17dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="15dp">
 
-            <ImageView
-                android:id="@+id/compare_profile"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/profile_w" />
-
-            <TextView
-                android:id="@+id/compare_name"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="박인비"
-                android:textSize="20sp" />
-        </LinearLayout>
+                android:gravity="center">
 
+                <Button
+                    android:id="@+id/btnSync1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="syncBtnClick"
+                    android:text="어드레스"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/btnSync2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="syncBtnClick"
+                    android:text="탑오브스윙"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnSync3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="syncBtnClick"
+                    android:text="임팩트"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/btnSync4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="syncBtnClick"
+                    android:text="팔로우스루"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/imageView4"
             android:layout_width="match_parent"
@@ -143,6 +158,7 @@
             android:layout_height="0dp"
             android:layout_weight="4"
             android:background="@color/colorGround"
-            android:orientation="horizontal"></LinearLayout>
+            android:orientation="vertical"
+            ></LinearLayout>
     </LinearLayout>
 </LinearLayout>

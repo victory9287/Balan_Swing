@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    android:background="#CC000000"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingTop="4dip"
+        android:gravity="center">
+
+        <ImageButton style="@android:style/MediaButton.Previous"
+            android:id="@+id/prev"/>
+
+        <ImageButton style="@android:style/MediaButton.Rew"
+            android:id="@+id/rew"/>
+
+        <ImageButton style="@android:style/MediaButton.Play"
+            android:id="@+id/pause"/>
+
+        <ImageButton style="@android:style/MediaButton.Ffwd"
+            android:id="@+id/ffwd"/>
+
+        <ImageButton style="@android:style/MediaButton.Next"
+            android:id="@+id/next"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:paddingTop="4dip"
+            android:id="@+id/time_current"
+            android:paddingRight="4dip"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="4dip"
+            android:textStyle="bold"
+            android:textSize="14sp"/>
+
+        <SeekBar
+            android:id="@+id/mediacontroller_progress"
+            android:layout_height="32dip"
+            android:layout_width="0dip"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_weight="1"/>
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:paddingTop="4dip"
+            android:id="@+id/time"
+            android:paddingRight="4dip"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="4dip"
+            android:textStyle="bold"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

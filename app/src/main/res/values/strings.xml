@@ -209,5 +209,6 @@
     <string name="spinnerTextSize">
         35sp
     </string>
+    <string name="title_activity_sync">SyncActivity</string>
 
 </resources>

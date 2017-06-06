@@ -52,6 +52,9 @@
         <activity
             android:name=".CameraActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".SyncActivity"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

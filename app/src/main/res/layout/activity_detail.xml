@@ -137,7 +137,12 @@
                     android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
-
+        <Button
+            android:id="@+id/saveTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="시간값 저장"
+            android:onClick="btnClick"/>
         <LinearLayout
             android:id="@+id/imageView4"
             android:layout_width="match_parent"

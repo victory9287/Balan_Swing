@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.victory.balan_swing.R.id.btnSignup;
 import static com.example.victory.balan_swing.SignupActivity.font;
@@ -36,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     TextView tvSignup;
     ImageButton btnLanguage;
-    ArrayAdapter<String> adapter;
+    SpinnerAdapter adapter;
 
     String[] select, set, cancel, login, signup;
 
@@ -100,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
         for (int i = 0; i < accountList.size(); i++){
             idList.add(accountList.get(i).getM_Id());
         }
-        adapter = new ArrayAdapter<String>(this, R.layout.spinner_entry, idList);
+        adapter = new SpinnerAdapter(this, R.layout.spinner_entry, idList);
         accountSpinner.setAdapter(adapter);
         accountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -222,5 +224,33 @@ public class LoginActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
         }
     }
-}
 
+    public class SpinnerAdapter extends ArrayAdapter<String> {
+        Context context;
+        List<String> a_list;
+
+        public SpinnerAdapter(Context context, int resource, List<String> objects) {
+            super(context, resource, objects);
+            this.context = context;
+            a_list = objects;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            TextView view = (TextView) super.getView(position, convertView, parent);
+            view.setTypeface(font);
+            return view;
+        }
+
+        /**
+         * 기본 스피너 View 정의
+         */
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            TextView view = (TextView) super.getView(position, convertView, parent);
+            view.setTypeface(font);
+            return view;
+        }
+    }
+
+}
