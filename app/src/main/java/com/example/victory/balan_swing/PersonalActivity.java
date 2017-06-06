@@ -2,11 +2,15 @@ package com.example.victory.balan_swing;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PixelFormat;
 import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -23,6 +27,11 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
     SurfaceHolder mSh;
     String sdRootPath;
     MediaPlayer mPlayer;
+
+    SurfaceView sv2;
+    SurfaceHolder mSh2;
+    MediaPlayer mPlayer2;
+    String filePath2;
 
     boolean StartNStop = true;
     boolean mFirst = true;
@@ -50,6 +59,12 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
         btn3.setTypeface(font);
 
         SurfaceView sv = (SurfaceView) findViewById(R.id.svVideo);
+        sv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewOverlap();
+            }
+        });
         mSh = sv.getHolder();
         mSh.addCallback(this);
 
@@ -122,6 +137,75 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
 
         }
 
+    }
+
+    public void viewOverlap() {
+        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View videoView = inflater.inflate(R.layout.dialog_video, null);
+        sdRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+        filePath2 = sdRootPath + "/DCIM/Camera"+"/Mswing.mp4";
+
+        sv2 = (SurfaceView) videoView.findViewById(R.id.bigvideo);
+        sv2.setZOrderOnTop(true);
+        mSh2 = sv2.getHolder();
+        mSh2.setFormat(PixelFormat.TRANSPARENT);
+        mSh2.addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                try {
+
+                    //에러 수정 코드
+                    FileInputStream fileInputStream;
+                    Log.d("check", filePath2);
+                    mPlayer2 = new MediaPlayer();
+                    mPlayer2.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+
+                        }
+                    });
+                    fileInputStream = new FileInputStream(filePath2);
+
+                    mPlayer2.setDataSource(fileInputStream.getFD());
+                    fileInputStream.close();
+
+
+                    mPlayer2.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mediaPlayer) {
+                            params = mediaPlayer.getPlaybackParams();
+                            mediaPlayer.start();
+                            mediaPlayer.setLooping(true);
+                        }
+                    });
+
+                    mPlayer2.prepareAsync();
+
+                } catch (IOException e) {
+                    return;
+
+                }
+
+                mPlayer2.setDisplay(holder);
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+
+            }
+        });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(videoView);
+
+        AlertDialog dialog = builder.show();
+        dialog.show();
     }
 
     public void surfaceCreated(SurfaceHolder holder) {

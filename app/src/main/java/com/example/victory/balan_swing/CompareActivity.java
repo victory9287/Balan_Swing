@@ -2,11 +2,15 @@ package com.example.victory.balan_swing;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PixelFormat;
 import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -32,10 +36,17 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
     String sdRootPath;
     MediaPlayer mPlayer[];
 
+    SurfaceView sv2;
+    SurfaceHolder mSh2;
+    MediaPlayer mPlayer2;
+    String filePath2;
+
     PlaybackParams params;
 
     private LinearLayout mPDRField;
     MYView mView;
+
+    SurfaceHolder.Callback callback;
 
 
     @Override
@@ -50,7 +61,19 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
         sv = new SurfaceView[2];
         sv[0]= (SurfaceView)findViewById(R.id.partnerVideo);
+        sv[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewOverlap(0);
+            }
+        });
         sv[1] = (SurfaceView)findViewById(R.id.myVideo);
+        sv[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewOverlap(1);
+            }
+        });
 
         mSh = new SurfaceHolder[2];
 
@@ -79,6 +102,102 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
         ImageView compare_profile = (ImageView) findViewById(R.id.compare_profile);
         compare_profile.setImageResource(profileID[sample]);
+
+//        callback = new SurfaceHolder.Callback() {
+//            @Override
+//            public void surfaceCreated(SurfaceHolder holder) {
+//                loadVideoSource2();
+//
+//                holder.setFixedSize(mPlayer2.getVideoWidth(), mPlayer2.getVideoHeight());
+//                Log.d("check", "사이즈 : "+mPlayer2.getVideoWidth()+", "+mPlayer2.getVideoHeight());
+//                mPlayer2.setDisplay(holder);
+//            }
+//
+//            @Override
+//            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+//
+//            }
+//
+//            @Override
+//            public void surfaceDestroyed(SurfaceHolder holder) {
+//
+//            }
+//        };
+    }
+
+    public void viewOverlap(int num) {
+        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View videoView = inflater.inflate(R.layout.dialog_video, null);
+        sdRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        switch (num){
+            case 0:
+                filePath2 = sdRootPath + "/DCIM/Camera"+"/swing.mp4";
+                break;
+            case 1:
+                filePath2 = sdRootPath + "/DCIM/Camera"+"/Mswing.mp4";
+                break;
+        }
+
+        sv2 = (SurfaceView) videoView.findViewById(R.id.bigvideo);
+        sv2.setZOrderOnTop(true);
+        mSh2 = sv2.getHolder();
+        mSh2.setFormat(PixelFormat.TRANSPARENT);
+        mSh2.addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                try {
+
+                    //에러 수정 코드
+                    FileInputStream fileInputStream;
+                    Log.d("check", filePath2);
+                    mPlayer2 = new MediaPlayer();
+                    mPlayer2.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+
+                        }
+                    });
+                    fileInputStream = new FileInputStream(filePath2);
+
+                    mPlayer2.setDataSource(fileInputStream.getFD());
+                    fileInputStream.close();
+
+
+                    mPlayer2.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mediaPlayer) {
+                            params = mediaPlayer.getPlaybackParams();
+                            mediaPlayer.start();
+                            mediaPlayer.setLooping(true);
+                        }
+                    });
+
+                    mPlayer2.prepareAsync();
+
+                } catch (IOException e) {
+                    return;
+
+                }
+
+                mPlayer2.setDisplay(holder);
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+
+            }
+        });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(videoView);
+
+        AlertDialog dialog = builder.show();
+        dialog.show();
     }
 
     public void btnClick(View view) {
@@ -172,6 +291,45 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
     }
 
+    public void loadVideoSource2() {
+
+        try {
+
+            //error 1, 2147483648 나는 코드
+            //mPlayer.setDataSource(filePath);
+
+            //에러 수정 코드
+            FileInputStream fileInputStream;
+            Log.d("check", filePath2);
+                mPlayer2 = new MediaPlayer();
+            mPlayer2.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+
+                }
+            });
+                fileInputStream = new FileInputStream(filePath2);
+
+                mPlayer2.setDataSource(fileInputStream.getFD());
+                fileInputStream.close();
+
+
+            mPlayer2.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    params = mediaPlayer.getPlaybackParams();
+                    mediaPlayer.start();
+                }
+            });
+
+            mPlayer2.prepareAsync();
+
+        } catch (IOException e) {
+            return;
+
+        }
+
+    }
 
     public void onPrepared(MediaPlayer mp) {
 

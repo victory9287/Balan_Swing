@@ -153,16 +153,16 @@ public class MainActivity extends AppCompatActivity {
         init();
         MakeCalendarView();
         // 테스트
-        cDay[5].mTvGrade.setText("C");
-        cDay[10].mTvGrade.setText("C");
-        cDay[14].mTvGrade.setText("B");
-        cDay[13].mTvGrade.setText("B");
-        cDay[17].mTvGrade.setText("B");
-        cDay[19].mTvGrade.setText("B");
-        cDay[22].mTvGrade.setText("A");
-        cDay[25].mTvGrade.setText("A");
-        cDay[27].mTvGrade.setText("A");
-        cDay[29].mTvGrade.setText("S");
+//        cDay[5].mTvGrade.setText("C");
+//        cDay[10].mTvGrade.setText("C");
+//        cDay[14].mTvGrade.setText("B");
+//        cDay[13].mTvGrade.setText("B");
+//        cDay[17].mTvGrade.setText("B");
+//        cDay[19].mTvGrade.setText("B");
+//        cDay[22].mTvGrade.setText("A");
+//        cDay[25].mTvGrade.setText("A");
+//        cDay[27].mTvGrade.setText("A");
+//        cDay[29].mTvGrade.setText("S");
     }
 
     public int GetPixelFromDP(float aDP)
