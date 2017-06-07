@@ -15,7 +15,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -41,22 +40,24 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
     };
 
     Button[] step;
-    SurfaceHolder holder;
-    String sdRootPath;
-    MediaPlayer mPlayer;
 
-    boolean StartNStop = true;
-    boolean mFirst = true;
+    SurfaceView sv[];
+    SurfaceHolder mSh[];
+    String sdRootPath;
+    MediaPlayer mPlayer[];
 
     PlaybackParams params;
-    static int detail_Time[];
+    static int detail_Time[]; //= {8000, 27000, 35000, 53000};
+    static int detail_Time_pro[] = {2000, 30667, 46000, 65000};
 
-    private BarChart chart;
+    BarChart chart;
+
     ArrayList<String> BarEntryLabels;
     BarDataSet Bardataset;
     BarData BARDATA;
-
     int A = 0;
+
+    Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,23 +65,15 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         setContentView(R.layout.activity_detail);
         init();
 
-        SurfaceView sv2 = (SurfaceView) findViewById(R.id.detail_myVideo);
-        holder = sv2.getHolder();
-        holder.addCallback(this);
 
         BarEntryLabels = new ArrayList<String>();
-
         AddvaluesToBarEntryLabels();
 
-
-
-
         BarThread bar_thread = new BarThread();
-        //thread.setDaemon(true);
         bar_thread.start();
 
-
     }
+
     class BarThread extends Thread{
         @Override
 
@@ -138,13 +131,25 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
 
         Log.d("check", "aaa");
     }
-
     public void AddvaluesToBarEntryLabels(){
         BarEntryLabels.add("LEFT");
         BarEntryLabels.add("RIGHT");
     }
 
+
     public void init() {
+
+        sv = new SurfaceView[2];
+        sv[0]= (SurfaceView)findViewById(R.id.detail_partnerVideo);
+        sv[1] = (SurfaceView)findViewById(R.id.detail_myVideo);
+
+        mSh = new SurfaceHolder[2];
+
+        for(int i=0;i<2;i++){
+            mSh[i] = sv[i].getHolder();
+            mSh[i].addCallback(this);
+        }
+
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         lang = pref.getInt("language", 0);
         sample = pref.getInt("sample", -1);
@@ -188,66 +193,74 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
             case R.id.btnDetail4:
                 clickBtn(3);
                 break;
-
-
+            case R.id.saveTime:
+                if(thread!=null){
+                }
+                Intent syncIntent = new Intent(this, SyncActivity.class);
+                startActivity(syncIntent);
+                break;
         }
     }
     public void clickBtn(int num){
-        detail_Time[num] = mPlayer.getCurrentPosition()*2/1000;
+        detail_Time[num] = mPlayer[0].getCurrentPosition(); //1000으로 나누어줘야 초단위
         step[num].setAlpha(1.0f);
         step[num].setBackgroundColor(Color.BLACK);
         step[num].setTextColor(Color.WHITE);
 
-        Toast.makeText(this, detail_Time[num]+"초", Toast.LENGTH_SHORT).show();
+
     }
     public void loadVideoSource() {
 
         sdRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
-        //자기꺼 주석 풀어서 쓰기!
-
-        //String filePath = sdRootPath+"/DCIM/Camera"+"/20170426_162440.mp4"; //영서 오빠 영상
-        //String filePath = sdRootPath+"/DCIM/Camera"+"/20170314_225610.mp4"; // 종현이 영상
-        String filePath = sdRootPath + "/DCIM/Camera"+"/Mswing.mp4"; // 넥서스 영상
-
+        String filePath[] = {sdRootPath + "/DCIM/Camera"+"/newSwing.mp4",
+                sdRootPath + "/DCIM/Camera"+"/newMswing.mp4"};// 넥서스 영상
 
         try {
 
-            mPlayer = new MediaPlayer();
+            mPlayer = new MediaPlayer[2];
 
-            //error 1, 2147483648 나는 코드
-            //mPlayer.setDataSource(filePath);
+            FileInputStream fileInputStream[] = new FileInputStream[2];
 
-            //에러 수정 코드
-            FileInputStream fileInputStream = new FileInputStream(filePath);
-            mPlayer.setDataSource(fileInputStream.getFD());
-            fileInputStream.close();
+            for(int i=0;i<2;i++){
+                mPlayer[i] = new MediaPlayer();
+                fileInputStream[i] = new FileInputStream(filePath[i]);
 
-            mPlayer.setDisplay(holder);
+                mPlayer[i].setDataSource(fileInputStream[i].getFD());
+                fileInputStream[i].close();
 
-            mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+
+                mPlayer[i].setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        mediaPlayer.start();
+                    }
+                });
+            }
+
+            mPlayer[0].setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
-                    if (StartNStop) {
-                        params = mPlayer.getPlaybackParams();
+                    params = mediaPlayer.getPlaybackParams();
 
-                        float slow = 0.3f;
-                        mPlayer.setPlaybackParams(params.setSpeed(slow));
-                        mPlayer.start();
-                    } else {
-                        mPlayer.pause();
-                    }
+                    mediaPlayer.setPlaybackParams(params.setSpeed(2.5f));
+                    mediaPlayer.start();
                 }
             });
-            mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            mPlayer[1].setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    mPlayer.start();
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    params = mediaPlayer.getPlaybackParams();
+                    mediaPlayer.setPlaybackParams(params.setSpeed(1.8f));
+                    mediaPlayer.start();
                 }
             });
 
-            mPlayer.prepareAsync();
-
+            mPlayer[0].prepareAsync();
+            mPlayer[1].prepareAsync();
 
         } catch (IOException e) {
 
@@ -267,10 +280,17 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
 
         loadVideoSource();
 
+        if(thread==null){
 
-
-
-        holder.setFixedSize(mPlayer.getVideoWidth(), mPlayer.getVideoHeight());
+            holder.setFixedSize(mPlayer[0].getVideoWidth(), mPlayer[0].getVideoHeight());
+            mPlayer[0].setDisplay(holder);
+            thread = new Thread();
+            thread.start();
+        }
+        else{
+            holder.setFixedSize(mPlayer[1].getVideoWidth(), mPlayer[1].getVideoHeight());
+            mPlayer[1].setDisplay(holder);
+        }
 
     }
 
@@ -284,18 +304,14 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
 
     public void deletePlayer() {
 
-        if (mPlayer != null) {
+        for (int i = 0; i < 2; i++) {
+            if (mPlayer[i] != null) {
 
-            mPlayer.stop();
+                mPlayer[i].stop();
+                mPlayer[i].release();
+                mPlayer[i] = null;
 
-            mPlayer.release();
-
-            mPlayer = null;
-
+            }
         }
-
     }
-
-
 }
-

@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -123,7 +122,7 @@ public class SyncActivity extends AppCompatActivity implements SurfaceHolder.Cal
             mPlayer.seekTo(detail_Time[num]);
             mPlayer.pause();
 
-            Toast.makeText(this, detail_Time[num]+"", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, detail_Time[num]+"", Toast.LENGTH_SHORT).show();
 
         }
 

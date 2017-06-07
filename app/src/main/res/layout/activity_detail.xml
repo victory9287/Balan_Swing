@@ -172,10 +172,7 @@
             android:layout_height="0dp"
             android:layout_weight="4"
             android:background="@color/colorGround"
-            android:orientation="vertical"></LinearLayout>
-            android:orientation="vertical"
-            >
-
+            android:orientation="vertical">
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barchart"
                 android:layout_width="fill_parent"
@@ -183,4 +180,5 @@
                 />
 
         </LinearLayout>
+    </LinearLayout>
     </LinearLayout>
