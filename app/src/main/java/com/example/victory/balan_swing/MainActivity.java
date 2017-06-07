@@ -491,14 +491,6 @@ public class MainActivity extends AppCompatActivity {
         //int[] points = new int[10];
         int[] month = new int[12];
 
-//        for (int i = 0; i < 12; i++) {
-//            month[i] = random.nextInt(100);
-//        }
-//
-//        for (int i = 0; i < 10; i++) {
-//            points[i] = month[i];
-//        }
-
         int[] points = {40, 46, 58, 62, 71, 81, 86, 93, 96, 100};
         // c c b b b b a a a s
 
