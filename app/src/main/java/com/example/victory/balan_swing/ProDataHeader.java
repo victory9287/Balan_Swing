@@ -9,6 +9,8 @@ public class ProDataHeader {
     private String proName;
     private int clubNumber;
 
+    public ProDataHeader(){}
+
     public ProDataHeader(String proID, String proName, int clubNumber){
         this.proID = proID;
         this.proName = proName;

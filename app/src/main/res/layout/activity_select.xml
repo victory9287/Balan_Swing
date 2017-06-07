@@ -14,13 +14,17 @@
         android:background="@color/colorSky"
         android:orientation="vertical">
 
-        <Button
+        <ImageButton
+            android:padding="7dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/img_back"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:id="@+id/btnSelectBack"
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:onClick="btnClick"
-            android:text="◀" />
+            android:onClick="btnClick"/>
 
         <LinearLayout
             android:layout_width="match_parent"

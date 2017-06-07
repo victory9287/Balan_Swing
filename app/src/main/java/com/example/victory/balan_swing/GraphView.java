@@ -3,7 +3,6 @@ package com.example.victory.balan_swing;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.ShapeDrawable;
@@ -36,11 +35,11 @@ public class GraphView extends View {
         TypedArray types = context.obtainStyledAttributes(attrs, R.styleable.GraphView);
 
         mPointPaint = new Paint();
-        mPointPaint.setColor(types.getColor(R.styleable.GraphView_pointColor, Color.BLUE));
+        mPointPaint.setColor(types.getColor(R.styleable.GraphView_pointColor, getResources().getColor(R.color.logout)));
         mPointSize = (int)types.getDimension(R.styleable.GraphView_pointSize, 10);
         mPointRadius = mPointSize;
 
-        mLineColor = types.getColor(R.styleable.GraphView_lineColor, Color.RED);
+        mLineColor = types.getColor(R.styleable.GraphView_lineColor, getResources().getColor(R.color.mildBlue));
         mThickness = types.getDimension(R.styleable.GraphView_lineThickness, 10);
     }
 

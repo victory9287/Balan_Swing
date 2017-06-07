@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.victory.balan_swing.R.id.btnSignup;
 import static com.example.victory.balan_swing.SignupActivity.font;
@@ -36,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     TextView tvSignup;
     ImageButton btnLanguage;
-    ArrayAdapter<String> adapter;
+    SpinnerAdapter adapter;
 
     String[] select, set, cancel, login, signup;
 
@@ -51,22 +53,16 @@ public class LoginActivity extends AppCompatActivity {
     MyDBHandler dbHandler;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private static String[] PERMISSIONS_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.RECORD_AUDIO};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Log.d("onCreate", "check");
-
-        verifyStoragePermissions(this);
-
-        font = Typeface.createFromAsset(getAssets(), "font.ttf");
-        select = getResources().getStringArray(R.array.dialog_select);
-        set = getResources().getStringArray(R.array.dialog_set);
-        cancel = getResources().getStringArray(R.array.dialog_cancel);
-        login = getResources().getStringArray(R.array.login_login);
-        signup = getResources().getStringArray(R.array.login_signup);
 
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         lang = pref.getInt("language", 0);
@@ -76,6 +72,15 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+        verifyStoragePermissions(this);
+
+        font = Typeface.createFromAsset(getAssets(), "font.ttf");
+        select = getResources().getStringArray(R.array.dialog_select);
+        set = getResources().getStringArray(R.array.dialog_set);
+        cancel = getResources().getStringArray(R.array.dialog_cancel);
+        login = getResources().getStringArray(R.array.login_login);
+        signup = getResources().getStringArray(R.array.login_signup);
 
         dbHandler = new MyDBHandler(this, null, null, 1);
         accountList = dbHandler.loadAccount();
@@ -97,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
         for (int i = 0; i < accountList.size(); i++){
             idList.add(accountList.get(i).getM_Id());
         }
-        adapter = new ArrayAdapter<String>(this, R.layout.spinner_entry, idList);
+        adapter = new SpinnerAdapter(this, R.layout.spinner_entry, idList);
         accountSpinner.setAdapter(adapter);
         accountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -209,11 +214,43 @@ public class LoginActivity extends AppCompatActivity {
         // Check if we have read or write permission
         int writePermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int readPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int cameraPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
+        int audioPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO);
         if (writePermission != PackageManager.PERMISSION_GRANTED
-                || readPermission != PackageManager.PERMISSION_GRANTED) {
+                || readPermission != PackageManager.PERMISSION_GRANTED
+                || cameraPermission != PackageManager.PERMISSION_GRANTED
+                || audioPermission != PackageManager.PERMISSION_GRANTED) {
             // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
         }
     }
-}
 
+    public class SpinnerAdapter extends ArrayAdapter<String> {
+        Context context;
+        List<String> a_list;
+
+        public SpinnerAdapter(Context context, int resource, List<String> objects) {
+            super(context, resource, objects);
+            this.context = context;
+            a_list = objects;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            TextView view = (TextView) super.getView(position, convertView, parent);
+            view.setTypeface(font);
+            return view;
+        }
+
+        /**
+         * 기본 스피너 View 정의
+         */
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            TextView view = (TextView) super.getView(position, convertView, parent);
+            view.setTypeface(font);
+            return view;
+        }
+    }
+
+}

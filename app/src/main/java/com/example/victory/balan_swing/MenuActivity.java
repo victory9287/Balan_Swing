@@ -9,9 +9,11 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -25,10 +27,13 @@ public class MenuActivity extends AppCompatActivity {
     int sample, lang;
 
     String[] title, calendar, personal, compare, logout, clubTitle, clubList, set, cancel;
+    RadioButton r1,r2,r3,r4,r5;
     String account;
     int club;
 
     MyDBHandler dbHandler;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +116,7 @@ public class MenuActivity extends AppCompatActivity {
             case R.id.menu_logout:
                 // 로그아웃
                 SharedPreferences.Editor editor = pref.edit();
+
                 editor.putString("account", "");
                 editor.commit();
                 // (다이얼로그 띄우기)
@@ -129,6 +135,18 @@ public class MenuActivity extends AppCompatActivity {
 
         RadioGroup radioGroup = (RadioGroup) dialogView.findViewById(R.id.langCheck);
 
+
+        r1 = (RadioButton) dialogView.findViewById(R.id.club1);
+        r2 = (RadioButton) dialogView.findViewById(R.id.club2);
+        r3 = (RadioButton) dialogView.findViewById(R.id.club3);
+        r4 = (RadioButton) dialogView.findViewById(R.id.club4);
+        r5 = (RadioButton) dialogView.findViewById(R.id.club5);
+        r1.setTypeface(font);
+        r2.setTypeface(font);
+        r3.setTypeface(font);
+        r4.setTypeface(font);
+        r5.setTypeface(font);
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
@@ -143,7 +161,13 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle(clubTitle[lang]);
+        TextView tv = new TextView(this);
+        tv.setTypeface(font);
+        tv.setText(clubTitle[lang]);
+        tv.setPadding(50,30,30,30);
+        tv.setTextSize(25f);
+        tv.setGravity(Gravity.LEFT);
+        alert.setCustomTitle(tv);
         alert.setView(dialogView);
         alert.setPositiveButton(set[lang], new DialogInterface.OnClickListener() {
             @Override

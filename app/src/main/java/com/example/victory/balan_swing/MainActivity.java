@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             mTvGrade.setPadding(10,10,10,10);
             mTvGrade.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
             mTvGrade.setTypeface(font);
+            mTvGrade.setTextColor(getResources().getColor(R.color.mildRed));
 
             mLLDay.addView(mTvDay);
             mLLDay.addView(mTvGrade);
@@ -108,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         public void clearSel() { mSel = false; }
     };
 
-    Button btnMainBack;
+    ImageButton btnMainBack;
 
     LinearLayout viewCalendar;
     LinearLayout viewDayOftheWeek;
@@ -151,6 +153,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init();
         MakeCalendarView();
+        // 테스트
+//        cDay[5].mTvGrade.setText("C");
+//        cDay[10].mTvGrade.setText("C");
+//        cDay[14].mTvGrade.setText("B");
+//        cDay[13].mTvGrade.setText("B");
+//        cDay[17].mTvGrade.setText("B");
+//        cDay[19].mTvGrade.setText("B");
+//        cDay[22].mTvGrade.setText("A");
+//        cDay[25].mTvGrade.setText("A");
+//        cDay[27].mTvGrade.setText("A");
+//        cDay[29].mTvGrade.setText("S");
     }
 
     public int GetPixelFromDP(float aDP)
@@ -164,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         lang = pref.getInt("language", 0);
 
-        btnMainBack = (Button) findViewById(R.id.btnMainBack);
+        btnMainBack = (ImageButton) findViewById(R.id.btnMainBack);
 
         viewCalendar = (LinearLayout) findViewById(R.id.calendarLayout);
         viewDayOftheWeek = (LinearLayout) findViewById(R.id.DayOftheWeek);
@@ -179,6 +192,15 @@ public class MainActivity extends AppCompatActivity {
         onClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (v instanceof ImageButton){
+                    ImageButton tmpImgBtn = (ImageButton) v;
+                    switch (tmpImgBtn.getId())
+                    {
+                        case R.id.btnMainBack:
+                            finish();
+                            break;
+                    }
+                }
                 if (v instanceof Button)
                 {
                     Button tmpBtn = (Button) v;
@@ -199,9 +221,6 @@ public class MainActivity extends AppCompatActivity {
                                 theYear++;
                                 theMonth = 0;
                             }
-                            break;
-                        case R.id.btnMainBack:
-                            finish();
                             break;
                     }
 
@@ -245,6 +264,17 @@ public class MainActivity extends AppCompatActivity {
                     MakeCalender(theYear, theMonth);
                     cDay[index].mSel = true;
                     cDay[index].setBackground_Sel();
+                    // 다이얼로그 띄우기
+                    LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View dialogView = inflater.inflate(R.layout.dialog_day, null);
+                    AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                    String date = cDay[index].mYear+"년 "+cDay[index].mMonth+"월 "+cDay[index].mDay+"일";
+                    alert.setTitle(date);
+                    alert.setView(dialogView);
+                    alert.setNegativeButton("닫기", null);
+
+                    AlertDialog dialog = alert.show();
+                    dialog.show();
 
                     //tvCurDate.setText(String.format("%04d/%02d/%02d", cDay[index].mYear, cDay[index].mMonth+1, cDay[index].mDay));
                 }
@@ -418,18 +448,19 @@ public class MainActivity extends AppCompatActivity {
         GraphView graphView = (GraphView) dialogView.findViewById(R.id.GraphView);
 
         Random random = new Random();
-        int[] points = new int[10];
+        //int[] points = new int[10];
         int[] month = new int[12];
 
-        for (int i = 0; i < 12; i++) {
-            month[i] = random.nextInt(100);
-        }
+//        for (int i = 0; i < 12; i++) {
+//            month[i] = random.nextInt(100);
+//        }
+//
+//        for (int i = 0; i < 10; i++) {
+//            points[i] = month[i];
+//        }
 
-        for (int i = 0; i < 10; i++) {
-            points[i] = month[i];
-        }
-
-        //int[] points = {5, 3, 7, 8, 4, 3, 3, 6, 4, 1};
+        int[] points = {40, 46, 58, 62, 71, 81, 86, 93, 96, 100};
+        // c c b b b b a a a s
 
         //GraphView graphview = (GraphView) findViewById(R.id.GraphView);
 

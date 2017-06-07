@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     tools:context="com.example.victory.balan_swing.CompareActivity">
     <LinearLayout
         android:paddingLeft="30dp"
@@ -58,18 +59,30 @@
                 android:src="@drawable/setting"
                 android:text="◀" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnDetail"
                 android:layout_width="45dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="?android:attr/selectableItemBackground"
                 android:onClick="btnClick"
+                android:padding="7dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_star"
                 android:text="★" />
-            <Button
+
+            <ImageButton
+                android:paddingRight="7dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/img_back"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 android:id="@+id/btnCompareBack"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
-                android:onClick="btnClick"
-                android:text="◀" />
+                android:layout_width="43dp"
+                android:layout_height="match_parent"
+                android:onClick="btnClick"/>
         </LinearLayout>
 
         <LinearLayout
