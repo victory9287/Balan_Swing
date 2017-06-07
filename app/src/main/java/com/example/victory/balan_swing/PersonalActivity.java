@@ -7,13 +7,12 @@ import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.AlertDialog;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -112,7 +111,7 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
             while (A < 200) {
                 try {
                     handler.sendMessage(handler.obtainMessage());
-                    Thread.sleep(250);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -141,7 +140,7 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
         chart.setDoubleTapToZoomEnabled(false);
         chart.setTouchEnabled(false);
 
-        //chart.animateY(50);
+        chart.animateY(1000);
         chart.setMaxVisibleValueCount(100);
 
         XAxis xAxis = chart.getXAxis();

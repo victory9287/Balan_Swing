@@ -6,23 +6,27 @@ import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.AlertDialog;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.example.victory.balan_swing.SignupActivity.font;
 
@@ -42,9 +46,12 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
     boolean mFirst = true;
 
     PlaybackParams params;
+    BarChart chart;
 
-    private LinearLayout mPDRField;
-    MYView mView;
+    ArrayList<String> BarEntryLabels;
+    BarDataSet Bardataset;
+    BarData BARDATA;
+    int A = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +66,8 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         mSh.addCallback(this);
 
 
+        BarEntryLabels = new ArrayList<String>();
         AddvaluesToBarEntryLabels();
-
 
         BarThread bar_thread = new BarThread();
         //thread.setDaemon(true);
@@ -75,7 +82,7 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
             while(A<200){
                 try{
                     handler.sendMessage(handler.obtainMessage());
-                    Thread.sleep(250);
+                    Thread.sleep(1000);
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }
@@ -102,7 +109,7 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         chart.setDoubleTapToZoomEnabled(false);
         chart.setTouchEnabled(false);
 
-        //chart.animateY(50);
+        chart.animateY(1000);
         chart.setMaxVisibleValueCount(100);
 
         XAxis xAxis = chart.getXAxis();

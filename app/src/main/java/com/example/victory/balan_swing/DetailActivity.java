@@ -7,16 +7,26 @@ import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.example.victory.balan_swing.SignupActivity.font;
 
@@ -41,8 +51,12 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
     PlaybackParams params;
     static int detail_Time[];
 
-    private LinearLayout mPDRField;
-    MYView mView;
+    private BarChart chart;
+    ArrayList<String> BarEntryLabels;
+    BarDataSet Bardataset;
+    BarData BARDATA;
+
+    int A = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +72,7 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
 
         AddvaluesToBarEntryLabels();
 
-        chart.setDoubleTapToZoomEnabled(false);
-        chart.setTouchEnabled(false);
+
 
 
         BarThread bar_thread = new BarThread();
@@ -75,7 +88,7 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
             while(A<200){
                 try{
                     handler.sendMessage(handler.obtainMessage());
-                    Thread.sleep(250);
+                    Thread.sleep(1000);
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }
@@ -102,7 +115,7 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         chart.setDoubleTapToZoomEnabled(false);
         chart.setTouchEnabled(false);
 
-        //chart.animateY(50);
+        chart.animateY(1000);
         chart.setMaxVisibleValueCount(100);
 
         XAxis xAxis = chart.getXAxis();
@@ -129,9 +142,6 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
     public void AddvaluesToBarEntryLabels(){
         BarEntryLabels.add("LEFT");
         BarEntryLabels.add("RIGHT");
-        mView = new MYView(this);
-        mPDRField = (LinearLayout)findViewById(R.id.personalGraphView);
-        mPDRField.addView(mView);
     }
 
     public void init() {
