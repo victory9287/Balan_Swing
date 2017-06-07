@@ -19,6 +19,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
 import java.util.Calendar;
 import java.util.Random;
 
@@ -445,7 +450,42 @@ public class MainActivity extends AppCompatActivity {
         final LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View dialogView = inflater.inflate(R.layout.dialog_graph, null);
 
-        GraphView graphView = (GraphView) dialogView.findViewById(R.id.GraphView);
+        GraphView graphView = (GraphView)  dialogView.findViewById(R.id.GraphView);
+
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+                new DataPoint(0, 35),
+                new DataPoint(2, 55),
+                new DataPoint(4, 46),
+                new DataPoint(6, 34),
+                new DataPoint(8, 47),
+                new DataPoint(10, 50),
+                new DataPoint(12, 65),
+                new DataPoint(14, 76),
+                new DataPoint(16, 74),
+                new DataPoint(18, 87),
+                new DataPoint(20, 90),
+        });
+//        PointsGraphSeries<DataPoint> series2 = new PointsGraphSeries<>(new DataPoint[] {
+//                new DataPoint(0, 35),
+//                new DataPoint(2, 55),
+//                new DataPoint(4, 46),
+//                new DataPoint(6, 34),
+//                new DataPoint(8, 47),
+//                new DataPoint(10, 50),
+//                new DataPoint(12, 65),
+//                new DataPoint(14, 76),
+//                new DataPoint(16, 74),
+//                new DataPoint(18, 87),
+//                new DataPoint(20, 90),
+//        });
+
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphView);
+        staticLabelsFormatter.setHorizontalLabels(new String[] {"","","","","","","","","","",""});
+        staticLabelsFormatter.setVerticalLabels(new String[]{"", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100" });
+        graphView.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+
+        graphView.addSeries(series);
+        //graphView.addSeries(series2);
 
         Random random = new Random();
         //int[] points = new int[10];
@@ -465,8 +505,9 @@ public class MainActivity extends AppCompatActivity {
         //GraphView graphview = (GraphView) findViewById(R.id.GraphView);
 
         //단위는 1씩, 원점은 0, 총 10줄로 나누어진 그래프를 그린다
-        graphView.setPoints(points, 1, 0, 100);
-        graphView.drawForBeforeDrawView();
+        //graphView.setPoints(points, 1, 0, 100);
+        //graphView.drawForBeforeDrawView();
+
 
         sync = getResources().getStringArray(R.array.main_match);
 

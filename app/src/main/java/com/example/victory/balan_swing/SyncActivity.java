@@ -86,7 +86,7 @@ public class SyncActivity extends AppCompatActivity implements SurfaceHolder.Cal
             Intent intent;
             switch (view.getId())
             {
-                case R.id.btnSyncBack:
+                case R.id.btnDetailBack:
                     deletePlayer();
                     finish();
                     break;

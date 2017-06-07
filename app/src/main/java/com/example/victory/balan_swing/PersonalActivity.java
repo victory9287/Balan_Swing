@@ -2,6 +2,7 @@ package com.example.victory.balan_swing;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.media.MediaPlayer;
 import android.media.PlaybackParams;
@@ -16,6 +17,11 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -77,6 +83,43 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
         mView = new MYView(this);
         mPDRField = (LinearLayout)findViewById(R.id.personalGraphView);
         mPDRField.addView(mView);
+
+        GraphView graphView = (GraphView) findViewById(R.id.graphView);
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+                new DataPoint(0, 50),
+                new DataPoint(2, 55),
+                new DataPoint(4, 60),
+                new DataPoint(6, 79),
+                new DataPoint(8, 83),
+                new DataPoint(10, 77),
+                new DataPoint(12, 60),
+                new DataPoint(14, 54),
+                new DataPoint(16, 42),
+                new DataPoint(18, 20),
+                new DataPoint(20, 13),
+        });
+        LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>(new DataPoint[] {
+                new DataPoint(0, 50),
+                new DataPoint(2, 62),
+                new DataPoint(4, 73),
+                new DataPoint(6, 92),
+                new DataPoint(8, 70),
+                new DataPoint(10, 53),
+                new DataPoint(12, 45),
+                new DataPoint(14, 20),
+                new DataPoint(16, 10),
+                new DataPoint(18, 4),
+                new DataPoint(20, 0),
+        });
+        series2.setColor(Color.RED);
+
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphView);
+        staticLabelsFormatter.setHorizontalLabels(new String[] {"","","","","","","","","","",""});
+        staticLabelsFormatter.setVerticalLabels(new String[]{"", "20", "40", "60", "80", "100" });
+        graphView.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+
+        graphView.addSeries(series);
+        graphView.addSeries(series2);
     }
 
     public void btnClick(View view) {

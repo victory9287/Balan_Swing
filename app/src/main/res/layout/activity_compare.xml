@@ -44,9 +44,10 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:gravity="right"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
             <ImageButton
                 android:id="@+id/btnSetting"
                 android:layout_width="45dp"
@@ -72,17 +73,17 @@
                 android:text="★" />
 
             <ImageButton
-                android:paddingRight="7dp"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:src="@drawable/img_back"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
                 android:id="@+id/btnCompareBack"
                 android:layout_width="43dp"
                 android:layout_height="match_parent"
-                android:onClick="btnClick"/>
+                android:adjustViewBounds="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="btnClick"
+                android:paddingBottom="7dp"
+                android:paddingRight="7dp"
+                android:paddingTop="7dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_back" />
         </LinearLayout>
 
         <LinearLayout
@@ -90,27 +91,18 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
+            android:gravity="center"
             android:orientation="vertical"
             android:paddingBottom="10dp"
             android:paddingTop="10dp">
 
-            <ImageView
-                android:id="@+id/compare_profile"
+            <com.jjoe64.graphview.helper.GraphViewXML
+                android:id="@+id/graphView"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/profile_w" />
+                android:layout_height="200dip"
+                app:seriesColor="@android:color/black"
+                app:seriesData="0=0;1=0;2=0;3=0;4=0;5=0;6=0;7=0;8=0;9=0;10=0;" />
 
-            <TextView
-                android:id="@+id/compare_name"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="박인비"
-                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout

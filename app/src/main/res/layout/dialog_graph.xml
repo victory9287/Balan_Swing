@@ -10,12 +10,22 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.example.victory.balan_swing.GraphView
+
+        <com.jjoe64.graphview.helper.GraphViewXML
             android:id="@+id/GraphView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            pointColor="@color/mildBlue" pointSize="8dp"
-            lineColor="@color/mildBlue" lineThickness="2dp"/>
+            android:layout_height="250dip"
+            app:seriesColor="@android:color/black"
+            app:seriesData="0=0;1=0;2=0;3=0;4=0;5=0;6=0;7=0;8=0;9=0;10=0;"/>
+
+        <!--<com.example.victory.balan_swing.GraphView-->
+            <!--android:id="@+id/GraphView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--pointColor="@color/mildBlue" pointSize="8dp"-->
+            <!--lineColor="@color/mildBlue" lineThickness="2dp"/>-->
+
+
         <TextView
             android:text="B+"
             android:textColor="@color/mildRed"
