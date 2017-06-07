@@ -156,6 +156,7 @@
             android:background="@color/colorGround"
             android:orientation="vertical"
             >
+
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barchart"
                 android:layout_width="fill_parent"

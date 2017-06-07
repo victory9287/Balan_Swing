@@ -48,10 +48,11 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
     PlaybackParams params;
 
     BarChart chart;
-    ArrayList<BarEntry> BARENTRY;
+
     ArrayList<String> BarEntryLabels;
     BarDataSet Bardataset;
     BarData BARDATA;
+    int A = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,26 +66,52 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         mSh = sv[0].getHolder();
         mSh.addCallback(this);
 
-        chart = (BarChart) findViewById(R.id.barchart);
-
-        BARENTRY = new ArrayList<>();
         BarEntryLabels = new ArrayList<String>();
 
         AddvaluesToBarEntryLabels();
 
-        Bardataset = new BarDataSet(BARENTRY, "FOOT");
-        BARDATA = new BarData(BarEntryLabels, Bardataset);
 
         BarThread thread = new BarThread();
         //thread.setDaemon(true);
         thread.start();
 
+    }
+
+    class BarThread extends Thread{
+        @Override
+
+            public void run(){
+            while(A<200){
+                try{
+                    handler.sendMessage(handler.obtainMessage());
+                    Thread.sleep(250);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+                A++;
+            }
+        }
+    }
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            updateThread1();
+            chart.invalidate();
+        }
+    };
+
+    private void updateThread1(){
+        ArrayList<BarEntry> BARENTRY = new ArrayList<>();
+        chart = (BarChart) findViewById(R.id.barchart);
+
+        Bardataset = new BarDataSet(BARENTRY, "FOOT");
+        BARDATA = new BarData(BarEntryLabels, Bardataset);
 
         //BarchartDesign
         chart.setDoubleTapToZoomEnabled(false);
         chart.setTouchEnabled(false);
 
-        //chart.animateY(1000);
+        //chart.animateY(50);
         chart.setMaxVisibleValueCount(100);
 
         XAxis xAxis = chart.getXAxis();
@@ -100,41 +127,12 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         chart.getAxisRight().setEnabled(false);
         chart.getAxisLeft().setEnabled(false);
 
-    }
-
-    class BarThread extends Thread{
-        @Override
-        public void run(){
-            while(true){
-
-                try{
-                    handler.sendEmptyMessage(0);
-                    Thread.sleep(20);
-                    handler.sendEmptyMessage(1);
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-    Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg){
-            if(msg.what == 0)
-                updateThread1();
-            else if(msg.what == 1)
-                updateThread2();
-        }
-    };
-    private void updateThread1(){
         BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),0));
         BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),1));
+
         chart.setData(BARDATA);
+
         Log.d("check", "aaa");
-    }
-    private void updateThread2(){
-        Log.d("check", "lll");
-        chart.clear();
     }
     public void AddvaluesToBarEntryLabels(){
         BarEntryLabels.add("LEFT");

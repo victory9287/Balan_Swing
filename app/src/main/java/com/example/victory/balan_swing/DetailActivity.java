@@ -7,7 +7,10 @@ import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -48,15 +51,17 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
     PlaybackParams params;
     static int detail_Time[];
 
-    BarChart chart;
-    ArrayList<BarEntry> BARENTRY;
+    private BarChart chart;
     ArrayList<String> BarEntryLabels;
     BarDataSet Bardataset;
     BarData BARDATA;
 
+    int A = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         init();
@@ -65,21 +70,55 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         holder = sv2.getHolder();
         holder.addCallback(this);
 
-        chart = (BarChart) findViewById(R.id.barchart);
-        BARENTRY = new ArrayList<>();
         BarEntryLabels = new ArrayList<String>();
 
-        AddValuesToBARENTRY();
         AddvaluesToBarEntryLabels();
-
-        Bardataset = new BarDataSet(BARENTRY, "FOOT");
-        BARDATA = new BarData(BarEntryLabels, Bardataset);
 
         chart.setDoubleTapToZoomEnabled(false);
         chart.setTouchEnabled(false);
 
-        chart.setData(BARDATA);
-        chart.animateY(3000);
+
+        BarThread thread = new BarThread();
+        //thread.setDaemon(true);
+        thread.start();
+
+
+    }
+    class BarThread extends Thread{
+        @Override
+
+        public void run(){
+            while(A<200){
+                try{
+                    handler.sendMessage(handler.obtainMessage());
+                    Thread.sleep(250);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+                A++;
+            }
+        }
+    }
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            updateThread1();
+            chart.invalidate();
+        }
+    };
+
+    private void updateThread1(){
+        ArrayList<BarEntry> BARENTRY = new ArrayList<>();
+        chart = (BarChart) findViewById(R.id.barchart);
+
+        Bardataset = new BarDataSet(BARENTRY, "FOOT");
+        BARDATA = new BarData(BarEntryLabels, Bardataset);
+
+        //BarchartDesign
+        chart.setDoubleTapToZoomEnabled(false);
+        chart.setTouchEnabled(false);
+
+        //chart.animateY(50);
         chart.setMaxVisibleValueCount(100);
 
         XAxis xAxis = chart.getXAxis();
@@ -95,11 +134,14 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         chart.getAxisRight().setEnabled(false);
         chart.getAxisLeft().setEnabled(false);
 
-    }
-    public void AddValuesToBARENTRY(){
         BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),0));
         BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),1));
+
+        chart.setData(BARDATA);
+
+        Log.d("check", "aaa");
     }
+
     public void AddvaluesToBarEntryLabels(){
         BarEntryLabels.add("LEFT");
         BarEntryLabels.add("RIGHT");
