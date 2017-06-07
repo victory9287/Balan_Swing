@@ -8,6 +8,8 @@ import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,7 +18,13 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
@@ -25,10 +33,17 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 import static com.example.victory.balan_swing.SignupActivity.font;
 
 public class PersonalActivity extends AppCompatActivity implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener {
+
+    BarChart barChart;
+    ArrayList<String> dates;
+    Random random;
+    ArrayList<BarEntry> barEntries;
 
     SurfaceHolder mSh;
     String sdRootPath;
@@ -50,12 +65,16 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
     SharedPreferences pref;
     int lang, club;
 
-    private LinearLayout mPDRField;
-    MYView mView;
-
-    Button btn1,btn2,btn3;
+    Button btn1, btn2, btn3;
 
     static final int REQUEST_VIDEO_CAPTURE = 1;
+
+    BarChart chart;
+
+    ArrayList<String> BarEntryLabels;
+    BarDataSet Bardataset;
+    BarData BARDATA;
+    int A = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +82,9 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
         setContentView(R.layout.activity_personal);
         Log.d("check", "onCreate");
 
-        btn1 = (Button)findViewById(R.id.buttonSlow);
-        btn2 = (Button)findViewById(R.id.buttonReturn);
-        btn3 = (Button)findViewById(R.id.buttonFast);
+        btn1 = (Button) findViewById(R.id.buttonSlow);
+        btn2 = (Button) findViewById(R.id.buttonReturn);
+        btn3 = (Button) findViewById(R.id.buttonFast);
         btn1.setTypeface(font);
         btn2.setTypeface(font);
         btn3.setTypeface(font);
@@ -79,10 +98,6 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
         });
         mSh = sv.getHolder();
         mSh.addCallback(this);
-
-        mView = new MYView(this);
-        mPDRField = (LinearLayout)findViewById(R.id.personalGraphView);
-        mPDRField.addView(mView);
 
         GraphView graphView = (GraphView) findViewById(R.id.graphView);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
@@ -120,6 +135,80 @@ public class PersonalActivity extends AppCompatActivity implements SurfaceHolder
 
         graphView.addSeries(series);
         graphView.addSeries(series2);
+
+        BarEntryLabels = new ArrayList<String>();
+
+        AddvaluesToBarEntryLabels();
+
+
+        BarThread bar_thread = new BarThread();
+        //thread.setDaemon(true);
+        bar_thread.start();
+
+    }
+
+    class BarThread extends Thread {
+        @Override
+
+        public void run() {
+            while (A < 200) {
+                try {
+                    handler.sendMessage(handler.obtainMessage());
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                A++;
+            }
+        }
+    }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            updateThread1();
+            chart.invalidate();
+        }
+    };
+
+
+    private void updateThread1(){
+        ArrayList<BarEntry> BARENTRY = new ArrayList<>();
+        chart = (BarChart) findViewById(R.id.barchart);
+
+        Bardataset = new BarDataSet(BARENTRY, "FOOT");
+        BARDATA = new BarData(BarEntryLabels, Bardataset);
+
+        //BarchartDesign
+        chart.setDoubleTapToZoomEnabled(false);
+        chart.setTouchEnabled(false);
+
+        chart.animateY(1000);
+        chart.setMaxVisibleValueCount(100);
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setDrawGridLines(false);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setPosition(XAxis.XAxisPosition.TOP);
+        xAxis.setTextSize(10f);
+
+        YAxis yAxis = chart.getAxisLeft();
+        yAxis.setAxisMaxValue(0f);
+        yAxis.setAxisMinValue(-100f);
+
+        chart.getAxisRight().setEnabled(false);
+        chart.getAxisLeft().setEnabled(false);
+
+        BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),0));
+        BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),1));
+
+        chart.setData(BARDATA);
+
+        Log.d("check", "aaa");
+    }
+    public void AddvaluesToBarEntryLabels(){
+        BarEntryLabels.add("LEFT");
+        BarEntryLabels.add("RIGHT");
     }
 
     public void btnClick(View view) {
