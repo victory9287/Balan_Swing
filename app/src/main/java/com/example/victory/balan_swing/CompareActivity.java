@@ -17,15 +17,9 @@ import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.helper.StaticLabelsFormatter;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -33,12 +27,16 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static com.example.victory.balan_swing.SignupActivity.font;
+import static com.example.victory.balan_swing.R.id.percent;
 
 
 public class CompareActivity extends AppCompatActivity implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener {
@@ -62,12 +60,20 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
     BarChart chart;
 
     ArrayList<String> BarEntryLabels;
+    //ArrayList<String> LineEntryLabels;
     BarDataSet Bardataset;
     BarData BARDATA;
+    //LineDataSet Linedataset;
+    //LineData LINEDATA;
+
     int A = 0;
 
-    private LinearLayout mPDRField;
-    MYView mView;
+    int AAAA = 0;
+
+    TextView percentview;
+
+    private FrameLayout mPDRField;
+    //MYView mView;
 
 
     @Override
@@ -77,7 +83,9 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         init();
 
         BarEntryLabels = new ArrayList<String>();
+        //LineEntryLabels = new ArrayList<String>();
         AddvaluesToBarEntryLabels();
+        AddvaluesToLineEntryLabels();
 
         BarThread bar_thread = new BarThread();
         bar_thread.start();
@@ -88,10 +96,10 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         @Override
 
         public void run(){
-            while(A<200){
+            while(A<199){
                 try{
                     handler.sendMessage(handler.obtainMessage());
-                    Thread.sleep(1000);
+                    Thread.sleep(35);
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }
@@ -103,22 +111,100 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         @Override
         public void handleMessage(Message msg){
             updateThread1();
+            AAAA++;
             chart.invalidate();
         }
     };
 
     private void updateThread1(){
         ArrayList<BarEntry> BARENTRY = new ArrayList<>();
+        //ArrayList<Entry> LINEENTRY = new ArrayList<>();
         chart = (BarChart) findViewById(R.id.barchart);
 
+        String[] left = {
+                "-50.0", "-50.5", "-51.0", "-51.5", "-52.0", "-52.5", "-53.0", "-53.5", "-54.0", "-54.5",
+                "-55.0", "-55.5", "-56.0", "-56.5", "-57.0", "-57.5", "-58.0", "-58.5", "-59.0", "-59.5",
+                "-60.0", "-60.5", "-61.0", "-61.5", "-62.0", "-62.5", "-63.0", "-63.5", "-64.0", "-64.5",
+                "-65.0", "-65.5", "-66.0", "-66.5", "-67.0", "-67.5", "-68.0", "-68.5", "-69.0", "-69.5",
+                "-70.0", "-70.5", "-71.0", "-71.5", "-72.0", "-72.5", "-73.0", "-73.5", "-74.0", "-74.5",
+                "-75.0", "-75.5", "-76.0", "-76.5", "-77.0", "-77.5", "-78.0", "-78.5", "-79.0", "-79.5",
+                "-80.0", "-80.5", "-81.0", "-81.5", "-82.0", "-82.5", "-83.0", "-83.5", "-84.0", "-84.5",
+                "-85.0", "-85.5", "-86.0", "-86.5", "-87.0", "-87.5", "-88.0", "-88.5", "-89.0", "-89.5",
+                "-90.0", "-90.5", "-91.0", "-91.5", "-92.0", "-92.5", "-93.0", "-93.5", "-94.0", "-94.5",
+                "-95.0", "-95.5", "-96.0", "-96.5", "-97.0", "-97.5", "-98.0", "-98.5", "-99.0", "-99.5",
+
+                "-99.0", "-98.0", "-97.0", "-96.0", "-95.0", "-94.0", "-93.0", "-92.0", "-91.0", "-90.0",
+                "-89.0", "-88.0", "-87.0", "-86.0", "-85.0", "-84.0", "-83.0", "-82.0", "-81.0", "-80.0",
+                "-79.0", "-78.0", "-77.0", "-76.0", "-75.0", "-74.0", "-73.0", "-72.0", "-71.0", "-70.0",
+                "-69.0", "-68.0", "-67.0", "-66.0", "-65.0", "-64.0", "-63.0", "-62.0", "-61.0", "-60.0",
+                "-59.0", "-58.0", "-57.0", "-56.0", "-55.0", "-54.0", "-53.0", "-52.0", "-51.0", "-50.0",
+                "-49.0", "-48.0", "-47.0", "-46.0", "-45.0", "-44.0", "-43.0", "-42.0", "-41.0", "-40.0",
+                "-39.0", "-38.0", "-37.0", "-36.0", "-35.0", "-34.0", "-33.0", "-32.0", "-31.0", "-30.0",
+                "-29.0", "-28.0", "-27.0", "-26.0", "-25.0", "-24.0", "-23.0", "-22.0", "-21.0", "-20.0",
+                "-19.0", "-18.0", "-17.0", "-16.0", "-15.0", "-14.0", "-13.0", "-12.0", "-11.0", "-10.0",
+                "-9.0", "-8.0", "-7.0", "-6.0", "-5.0", "-4.0", "-3.0", "-2.0", "-1.0", "0.0",
+        };
+        String[] right = {
+                "-50.0", "-49.5", "-49.0", "-48.5", "-47.0", "-46.5", "-46.0", "-45.5", "-45.0", "-44.5",
+                "-44.0", "-43.5", "-43.0", "-42.5", "-42.0", "-41.5", "-41.0", "-40.5", "-40.0", "-39.5",
+                "-30.0", "-39.5", "-39.0", "-38.5", "-37.0", "-36.5", "-36.0", "-35.5", "-35.0", "-34.5",
+                "-34.0", "-33.5", "-33.0", "-32.5", "-32.0", "-31.5", "-31.0", "-30.5", "-30.0", "-29.5",
+                "-20.0", "-29.5", "-29.0", "-28.5", "-27.0", "-26.5", "-26.0", "-25.5", "-25.0", "-24.5",
+                "-24.0", "-23.5", "-23.0", "-22.5", "-22.0", "-21.5", "-21.0", "-20.5", "-20.0", "-19.5",
+                "-10.0", "-19.5", "-19.0", "-18.5", "-17.0", "-16.5", "-16.0", "-15.5", "-15.0", "-14.5",
+                "-14.0", "-13.5", "-13.0", "-12.5", "-12.0", "-11.5", "-11.0", "-10.5", "-10.0", "-9.5",
+                "-9.0", "-8.5", "-8.0", "-7.5", "-7.0", "-7.5", "-7.0", "-6.5", "-6.0", "-5.5",
+                "-5.0", "-4.5", "-4.0", "-3.5", "-3.0", "-2.5", "-2.0", "-1.5", "-1.0", "-0.5",
+
+                "-1.0", "-2.0", "-3.0", "-4.0", "-5.0", "-6.0", "-7.0", "-8.0", "-9.0", "-10.0",
+                "-11.0", "-12.0", "-13.0", "-14.0", "-15.0", "-16.0", "-17.0", "-18.0", "-19.0", "-20.0",
+                "-21.0", "-22.0", "-23.0", "-24.0", "-25.0", "-26.0", "-27.0", "-28.0", "-29.0", "-30.0",
+                "-31.0", "-32.0", "-33.0", "-34.0", "-35.0", "-36.0", "-37.0", "-38.0", "-39.0", "-40.0",
+                "-41.0", "-42.0", "-43.0", "-44.0", "-45.0", "-46.0", "-47.0", "-48.0", "-49.0", "-50.0",
+                "-51.0", "-52.0", "-53.0", "-54.0", "-55.0", "-56.0", "-57.0", "-58.0", "-59.0", "-60.0",
+                "-61.0", "-62.0", "-63.0", "-64.0", "-65.0", "-66.0", "-67.0", "-68.0", "-69.0", "-70.0",
+                "-71.0", "-72.0", "-73.0", "-74.0", "-75.0", "-76.0", "-77.0", "-78.0", "-79.0", "-80.0",
+                "-81.0", "-82.0", "-83.0", "-84.0", "-85.0", "-86.0", "-87.0", "-88.0", "-89.0", "-90.0",
+                "-91.0", "-92.0", "-93.0", "-94.0", "-95.0", "-96.0", "-97.0", "-98.0", "-99.0", "100.0"
+        };
+        String[] percent = {
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "88%", "69%",
+
+        };
         Bardataset = new BarDataSet(BARENTRY, "FOOT");
         BARDATA = new BarData(BarEntryLabels, Bardataset);
+
+        //Linedataset = new LineDataSet(LINEENTRY,"FOOT");
+       // LINEDATA = new LineData(BarEntryLabels, Linedataset);
 
         //BarchartDesign
         chart.setDoubleTapToZoomEnabled(false);
         chart.setTouchEnabled(false);
+        //Bardataset.setColor(Color.rgb(255,204,255));
+        Bardataset.setColor(Color.WHITE);
+        Bardataset.setBarSpacePercent(80f);
 
-        chart.animateY(1000);
+        //chart.animateY(1000);
         chart.setMaxVisibleValueCount(100);
 
         XAxis xAxis = chart.getXAxis();
@@ -134,21 +220,38 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         chart.getAxisRight().setEnabled(false);
         chart.getAxisLeft().setEnabled(false);
 
-        BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),0));
-        BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),1));
+        BARENTRY.add(new BarEntry(Float.parseFloat(right[AAAA]),0));
+        //BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),0));
+        BARENTRY.add(new BarEntry(Float.parseFloat(left[AAAA]),1));
+        //BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),1));
+        //LINEENTRY.add(new Entry(Float.parseFloat(right[AAAA]),0));
+        //LINEENTRY.add(new Entry(Float.parseFloat(left[AAAA]),1));
 
+        //CombinedData data = new CombinedData();
+        //data.setData(BARDATA);
+        //data.setData(LINEDATA);
         chart.setData(BARDATA);
+        //chart.setDescription("MyChart");
+
+        percentview.setText(percent[AAAA]);
 
         Log.d("check", "aaa");
+
+
     }
+
     public void AddvaluesToBarEntryLabels(){
         BarEntryLabels.add("LEFT");
         BarEntryLabels.add("RIGHT");
+    }
+    public void AddvaluesToLineEntryLabels(){
+
     }
 
 
     public void init() {
 
+        percentview = (TextView)findViewById(percent);
         sv = new SurfaceView[2];
         sv[0]= (SurfaceView)findViewById(R.id.partnerVideo);
         sv[0].setOnClickListener(new View.OnClickListener() {
@@ -173,9 +276,9 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         }
 
 
-        mView = new MYView(this);
-        mPDRField = (LinearLayout)findViewById(R.id.personalGraphView);
-        mPDRField.addView(mView);
+        //mView = new MYView(this);
+        mPDRField = (FrameLayout)findViewById(R.id.personalGraphView);
+        //mPDRField.addView(mView);
         pref = getSharedPreferences("pref", MODE_PRIVATE);
         lang = pref.getInt("language", 0);
         sample = pref.getInt("sample", -1);
