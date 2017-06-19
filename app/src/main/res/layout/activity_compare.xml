@@ -129,7 +129,7 @@
                 android:src="@drawable/foot_right" />
         </LinearLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/personalGraphView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -144,6 +144,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 />
-        </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/percent"
+                android:gravity="center"
+                />
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>
