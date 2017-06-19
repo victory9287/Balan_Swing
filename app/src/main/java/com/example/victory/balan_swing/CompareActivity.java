@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.example.victory.balan_swing.R.id.percent;
+import static com.example.victory.balan_swing.R.id.percent1;
 
 
 public class CompareActivity extends AppCompatActivity implements SurfaceHolder.Callback, MediaPlayer.OnPreparedListener {
@@ -62,7 +63,9 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
     ArrayList<String> BarEntryLabels;
     //ArrayList<String> LineEntryLabels;
     BarDataSet Bardataset;
+    BarDataSet Bardataset1;
     BarData BARDATA;
+    BarData BARDATA1;
     //LineDataSet Linedataset;
     //LineData LINEDATA;
 
@@ -71,6 +74,7 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
     int AAAA = 0;
 
     TextView percentview;
+    TextView percentview1;
 
     private FrameLayout mPDRField;
     //MYView mView;
@@ -118,6 +122,8 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
     private void updateThread1(){
         ArrayList<BarEntry> BARENTRY = new ArrayList<>();
+        ArrayList<BarEntry> BARENTRY1 = new ArrayList<>();
+
         //ArrayList<Entry> LINEENTRY = new ArrayList<>();
         chart = (BarChart) findViewById(R.id.barchart);
 
@@ -144,6 +150,29 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
                 "-19.0", "-18.0", "-17.0", "-16.0", "-15.0", "-14.0", "-13.0", "-12.0", "-11.0", "-10.0",
                 "-9.0", "-8.0", "-7.0", "-6.0", "-5.0", "-4.0", "-3.0", "-2.0", "-1.0", "0.0",
         };
+        String[] left1 = {
+                "-50.0", "-53.7", "-51.3", "-51.9", "-52.1", "-52.5", "-53.0", "-53.5", "-54.0", "-54.5",
+                "-55.0", "-57.8", "-56.4", "-51.8", "-57.2", "-51.1", "-58.2", "-52.5", "-56.0", "-59.5",
+                "-60.0", "-63.3", "-69.2", "-63.2", "-63.3", "-63.5", "-63.2", "-64.5", "-62.0", "-64.5",
+                "-65.0", "-61.5", "-62.1", "-64.3", "-69.7", "-65.5", "-68.5", "-67.5", "-61.0", "-69.5",
+                "-70.0", "-73.3", "-75.6", "-72.4", "-79.8", "-76.6", "-73.7", "-75.5", "-73.0", "-74.5",
+                "-75.0", "-74.2", "-72.8", "-71.1", "-72.2", "-78.7", "-78.9", "-71.5", "-85.0", "-79.5",
+                "-80.0", "-82.1", "-84.9", "-88.7", "-84.9", "-82.0", "-83.1", "-85.5", "-78.0", "-84.5",
+                "-85.0", "-88.6", "-86.2", "-81.8", "-86.3", "-81.1", "-88.3", "-73.5", "-99.0", "-89.5",
+                "-90.0", "-92.7", "-91.7", "-92.9", "-95.0", "-96.5", "-93.5", "-87.5", "-51.0", "-94.5",
+                "-95.0", "-91.0", "-80.4", "-91.2", "-92.1", "-98.4", "-98.7", "-94.5", "-63.0", "-99.5",
+
+                "-99.0", "-95.0", "-97.0", "-96.0", "-95.0", "-94.0", "-93.0", "-92.0", "-91.0", "-90.0",
+                "-82.0", "-83.0", "-77.0", "-85.0", "-75.0", "-81.0", "-83.0", "-82.0", "-81.0", "-80.0",
+                "-73.0", "-72.0", "-78.0", "-73.0", "-75.0", "-73.0", "-73.0", "-72.0", "-71.0", "-70.0",
+                "-64.0", "-38.0", "-63.0", "-62.0", "-75.0", "-68.0", "-63.0", "-62.0", "-61.0", "-60.0",
+                "-55.0", "-55.0", "-52.0", "-51.0", "-25.0", "-52.0", "-53.0", "-52.0", "-51.0", "-50.0",
+                "-46.0", "-46.0", "-41.0", "-48.0", "-45.0", "-49.0", "-43.0", "-42.0", "-41.0", "-40.0",
+                "-37.0", "-37.0", "-33.0", "-33.0", "-25.0", "-35.0", "-33.0", "-32.0", "-31.0", "-30.0",
+                "-28.0", "-21.0", "-57.0", "-22.0", "-15.0", "-27.0", "-23.0", "-22.0", "-21.0", "-20.0",
+                "-11.0", "-13.0", "-11.0", "-11.0", "-5.0", "-14.0", "-13.0", "-12.0", "-11.0", "-10.0",
+                "-9.0", "-8.0", "-7.0", "-6.0", "-5.0", "-4.0", "-3.0", "-2.0", "-1.0", "0.0",
+        };
         String[] right = {
                 "-50.0", "-49.5", "-49.0", "-48.5", "-47.0", "-46.5", "-46.0", "-45.5", "-45.0", "-44.5",
                 "-44.0", "-43.5", "-43.0", "-42.5", "-42.0", "-41.5", "-41.0", "-40.5", "-40.0", "-39.5",
@@ -167,6 +196,29 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
                 "-81.0", "-82.0", "-83.0", "-84.0", "-85.0", "-86.0", "-87.0", "-88.0", "-89.0", "-90.0",
                 "-91.0", "-92.0", "-93.0", "-94.0", "-95.0", "-96.0", "-97.0", "-98.0", "-99.0", "100.0"
         };
+        String[] right1 = {
+                "-50.0", "-49.5", "-49.0", "-48.5", "-47.0", "-46.5", "-46.0", "-45.5", "-45.0", "-44.5",
+                "-42.0", "-42.5", "-13.0", "-12.5", "-12.0", "-17.5", "-21.0", "-30.5", "-40.0", "-39.5",
+                "-20.0", "-31.5", "-39.0", "-28.5", "-27.0", "-24.5", "-36.0", "-32.5", "-35.0", "-34.5",
+                "-14.0", "-33.5", "-23.0", "-32.5", "-32.0", "-32.5", "-31.0", "-34.5", "-30.0", "-29.5",
+                "-40.0", "-27.5", "-39.0", "-38.5", "-47.0", "-44.5", "-46.0", "-25.5", "-25.0", "-24.5",
+                "-24.0", "-24.5", "-53.0", "-52.5", "-32.0", "-32.5", "-31.0", "-10.5", "-20.0", "-19.5",
+                "-30.0", "-18.5", "-69.0", "-68.5", "-27.0", "-21.5", "-16.0", "-35.5", "-15.0", "-14.5",
+                "-24.0", "-12.5", "-83.0", "-82.5", "-12.0", "-19.5", "-11.0", "-20.5", "-10.0", "-9.5",
+                "-9.0", "-8.5", "-8.0", "-7.5", "-7.0", "-7.5", "-7.0", "-6.5", "-6.0", "-5.5",
+                "-5.0", "-4.5", "-4.0", "-3.5", "-3.0", "-2.5", "-2.0", "-1.5", "-1.0", "-0.5",
+
+                "-1.0", "-2.0", "-3.0", "-4.0", "-5.0", "-6.0", "-7.0", "-8.0", "-9.0", "-10.0",
+                "-12.0", "-15.0", "-13.0", "-24.0", "-25.0", "-36.0", "-27.0", "-18.0", "-19.0", "-20.0",
+                "-23.0", "-22.0", "-21.0", "-34.0", "-35.0", "-26.0", "-37.0", "-38.0", "-29.0", "-30.0",
+                "-32.0", "-33.0", "-32.0", "-14.0", "-15.0", "-16.0", "-17.0", "-28.0", "-39.0", "-40.0",
+                "-41.0", "-41.0", "-43.0", "-34.0", "-35.0", "-46.0", "-47.0", "-38.0", "-49.0", "-50.0",
+                "-56.0", "-58.0", "-51.0", "-44.0", "-45.0", "-56.0", "-51.0", "-68.0", "-59.0", "-60.0",
+                "-68.0", "-62.0", "-67.0", "-64.0", "-65.0", "-69.0", "-62.0", "-58.0", "-69.0", "-70.0",
+                "-72.0", "-73.0", "-73.0", "-84.0", "-85.0", "-72.0", "-74.0", "-28.0", "-79.0", "-80.0",
+                "-89.0", "-85.0", "-83.0", "-84.0", "-85.0", "-83.0", "-83.0", "-18.0", "-89.0", "-90.0",
+                "-91.0", "-97.0", "-93.0", "-94.0", "-95.0", "-91.0", "-91.0", "-58.0", "-99.0", "100.0"
+        };
         String[] percent = {
                 "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
                 "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
@@ -188,11 +240,63 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
                 "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
                 "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
                 "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
-                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "88%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "99%", "69%",
+        };
+        String[] percent1 = {
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "55%", "69%",
+                "99%", "90%", "91%", "88%", "30%", "45%", "47%", "51%", "1%", "69%",
+        };
+        Float[] percent2 = {
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
+                99f, 90f, 91f, 88f, 30f, 45f, 47f, 51f, 55f, 69f,
 
         };
-        Bardataset = new BarDataSet(BARENTRY, "FOOT");
+
+
+        Bardataset = new BarDataSet(BARENTRY, "foot");
+        //Bardataset1 = new BarDataSet(BARENTRY1,"");
+
         BARDATA = new BarData(BarEntryLabels, Bardataset);
+        //BARDATA1 = new BarData(BarEntryLabels, Bardataset1);
+
+
 
         //Linedataset = new LineDataSet(LINEENTRY,"FOOT");
        // LINEDATA = new LineData(BarEntryLabels, Linedataset);
@@ -209,9 +313,10 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(true);
+        xAxis.setDrawAxisLine(false);
         xAxis.setPosition(XAxis.XAxisPosition.TOP);
         xAxis.setTextSize(10f);
+        xAxis.isDrawLabelsEnabled();
 
         YAxis yAxis = chart.getAxisLeft();
         yAxis.setAxisMaxValue(0f);
@@ -221,19 +326,18 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
         chart.getAxisLeft().setEnabled(false);
 
         BARENTRY.add(new BarEntry(Float.parseFloat(right[AAAA]),0));
-        //BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),0));
         BARENTRY.add(new BarEntry(Float.parseFloat(left[AAAA]),1));
-        //BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),1));
-        //LINEENTRY.add(new Entry(Float.parseFloat(right[AAAA]),0));
-        //LINEENTRY.add(new Entry(Float.parseFloat(left[AAAA]),1));
+//
+//        BARENTRY.add(new BarEntry(Float.parseFloat(left[AAAA]),2));
+//        BARENTRY.add(new BarEntry(Float.parseFloat(left1[AAAA]),3));
 
-        //CombinedData data = new CombinedData();
-        //data.setData(BARDATA);
-        //data.setData(LINEDATA);
+        //BARENTRY.add(new BarEntry(-AA,0));
+        //BARENTRY.add(new BarEntry(-AA,1));
+
         chart.setData(BARDATA);
-        //chart.setDescription("MyChart");
 
         percentview.setText(percent[AAAA]);
+        percentview1.setText(percent1[AAAA]);
 
         Log.d("check", "aaa");
 
@@ -241,8 +345,10 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
     }
 
     public void AddvaluesToBarEntryLabels(){
-        BarEntryLabels.add("LEFT");
-        BarEntryLabels.add("RIGHT");
+        BarEntryLabels.add("");
+        BarEntryLabels.add("");
+//        BarEntryLabels.add("");
+//        BarEntryLabels.add("");
     }
     public void AddvaluesToLineEntryLabels(){
 
@@ -252,6 +358,7 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
     public void init() {
 
         percentview = (TextView)findViewById(percent);
+        percentview1 = (TextView)findViewById(percent1);
         sv = new SurfaceView[2];
         sv[0]= (SurfaceView)findViewById(R.id.partnerVideo);
         sv[0].setOnClickListener(new View.OnClickListener() {
@@ -295,6 +402,7 @@ public class CompareActivity extends AppCompatActivity implements SurfaceHolder.
 //
 //        ImageView compare_profile = (ImageView) findViewById(R.id.compare_profile);
 //        compare_profile.setImageResource(profileID[sample]);
+
 
         GraphView graphView = (GraphView) findViewById(R.id.graphView);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {

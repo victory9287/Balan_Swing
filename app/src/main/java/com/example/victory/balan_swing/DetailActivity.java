@@ -7,8 +7,6 @@ import android.media.MediaPlayer;
 import android.media.PlaybackParams;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -69,35 +67,35 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         BarEntryLabels = new ArrayList<String>();
         AddvaluesToBarEntryLabels();
 
-        BarThread bar_thread = new BarThread();
-        bar_thread.start();
+//        BarThread bar_thread = new BarThread();
+//        bar_thread.start();
 
     }
 
-    class BarThread extends Thread{
-        @Override
+//    class BarThread extends Thread{
+//        @Override
+//
+//        public void run(){
+//            while(A<200){
+//                try{
+//                    handler.sendMessage(handler.obtainMessage());
+//                    Thread.sleep(1000);
+//                }catch (InterruptedException e){
+//                    e.printStackTrace();
+//                }
+//                A++;
+//            }
+//        }
+//    }
+//    Handler handler = new Handler(){
+//        @Override
+//        public void handleMessage(Message msg){
+//            updateThread1();
+//            chart.invalidate();
+//        }
+//    };
 
-        public void run(){
-            while(A<200){
-                try{
-                    handler.sendMessage(handler.obtainMessage());
-                    Thread.sleep(1000);
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }
-                A++;
-            }
-        }
-    }
-    Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg){
-            updateThread1();
-            chart.invalidate();
-        }
-    };
-
-    private void updateThread1(){
+    private void drawChart(){
         ArrayList<BarEntry> BARENTRY = new ArrayList<>();
         chart = (BarChart) findViewById(R.id.barchart);
 
@@ -107,13 +105,15 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         //BarchartDesign
         chart.setDoubleTapToZoomEnabled(false);
         chart.setTouchEnabled(false);
+        Bardataset.setColor(Color.WHITE);
+        Bardataset.setBarSpacePercent(80f);
 
         chart.animateY(1000);
         chart.setMaxVisibleValueCount(100);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(true);
+        xAxis.setDrawAxisLine(false);
         xAxis.setPosition(XAxis.XAxisPosition.TOP);
         xAxis.setTextSize(10f);
 
@@ -132,8 +132,8 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
         Log.d("check", "aaa");
     }
     public void AddvaluesToBarEntryLabels(){
-        BarEntryLabels.add("LEFT");
-        BarEntryLabels.add("RIGHT");
+        BarEntryLabels.add("");
+        BarEntryLabels.add("");
     }
 
 
@@ -183,15 +183,19 @@ public class DetailActivity extends AppCompatActivity implements SurfaceHolder.C
                 break;
             case R.id.btnDetail1:
                 clickBtn(0);
+                drawChart();
                 break;
             case R.id.btnDetail2:
                 clickBtn(1);
+                drawChart();
                 break;
             case R.id.btnDetail3:
                 clickBtn(2);
+                drawChart();
                 break;
             case R.id.btnDetail4:
                 clickBtn(3);
+                drawChart();
                 break;
             case R.id.saveTime:
                 if(thread!=null){

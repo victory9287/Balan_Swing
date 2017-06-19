@@ -8,6 +8,7 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -16,9 +17,17 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.example.victory.balan_swing.DetailActivity.detail_Time;
 import static com.example.victory.balan_swing.SignupActivity.font;
@@ -43,6 +52,11 @@ public class SyncActivity extends AppCompatActivity implements SurfaceHolder.Cal
         ImageView proImg;
         int img[] = {R.drawable.address, R.drawable.topofswing, R.drawable.impact, R.drawable.followthrough};
 
+    BarChart chart;
+    ArrayList<String> BarEntryLabels;
+    BarDataSet Bardataset;
+    BarData BARDATA;
+
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +65,53 @@ public class SyncActivity extends AppCompatActivity implements SurfaceHolder.Cal
             init();
 
         }
+    private void drawchart(){
+        ArrayList<BarEntry> BARENTRY = new ArrayList<>();
+        chart = (BarChart) findViewById(R.id.barchart);
+
+        Bardataset = new BarDataSet(BARENTRY, "FOOT");
+        BARDATA = new BarData(BarEntryLabels, Bardataset);
+        BarEntryLabels.add("");
+        BarEntryLabels.add("");
+
+        //BarchartDesign
+        chart.setDoubleTapToZoomEnabled(false);
+        chart.setTouchEnabled(false);
+
+        chart.animateY(1000);
+        chart.setMaxVisibleValueCount(100);
+        Bardataset.setColor(Color.WHITE);
+        Bardataset.setBarSpacePercent(80f);
+
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setDrawGridLines(false);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setPosition(XAxis.XAxisPosition.TOP);
+        xAxis.setTextSize(10f);
+
+        YAxis yAxis = chart.getAxisLeft();
+        yAxis.setAxisMaxValue(0f);
+        yAxis.setAxisMinValue(-100f);
+
+        chart.getAxisRight().setEnabled(false);
+        chart.getAxisLeft().setEnabled(false);
+
+        BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),0));
+        BARENTRY.add(new BarEntry(-(float)(Math.random()*100.0),1));
+
+        chart.setData(BARDATA);
+
+        Log.d("check", "aaa");
+    }
+    public void AddvaluesToBarEntryLabels(){
+        BarEntryLabels.add("LEFT");
+        BarEntryLabels.add("RIGHT");
+    }
 
         public void init() {
+            chart = (BarChart)findViewById(R.id.barchart);
+
             proImg = (ImageView)findViewById(R.id.pro_img);
             proImg.setImageDrawable(getDrawable(img[0]));
             sv = new SurfaceView(this);
@@ -98,15 +157,23 @@ public class SyncActivity extends AppCompatActivity implements SurfaceHolder.Cal
                     break;
                 case R.id.btnSync1:
                     clickBtn(0);
+                    chart.invalidate();
+                    drawchart();
                     break;
                 case R.id.btnSync2:
                     clickBtn(1);
+                    chart.invalidate();
+                    drawchart();
                     break;
                 case R.id.btnSync3:
                     clickBtn(2);
+                    chart.invalidate();
+                    drawchart();
                     break;
                 case R.id.btnSync4:
                     clickBtn(3);
+                    chart.invalidate();
+                    drawchart();
                     break;
 
             }

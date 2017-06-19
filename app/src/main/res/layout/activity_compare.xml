@@ -147,8 +147,16 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="58dp"
                 android:id="@+id/percent"
-                android:gravity="center"
+                android:gravity="left"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="55dp"
+                android:id="@+id/percent1"
+                android:gravity="right"
                 />
         </FrameLayout>
     </LinearLayout>
