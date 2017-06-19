@@ -1,39 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:gravity="center">
+    android:layout_height="match_parent" android:gravity="center"
+    android:padding="20dp"
+    android:background="@color/weekday">
+    <TextView
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:id="@+id/day_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/layout_gray_stroke"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:gravity="center"
-            android:text="연번"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:gravity="center"
-            android:text="연번"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:gravity="center"
-            android:text="연번"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:gravity="center"
-            android:text="연번"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:background="@drawable/title"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="순번"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="시간"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="일치율"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="등급"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="1"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="pm 03:48"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="89.9%"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="B"
+                android:textColor="@color/mildRed"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="18sp"
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="pm 04:48"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="95.4%"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="A"
+                android:textColor="@color/mildRed"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="3"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="pm 04:51" />
+
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="96.6%"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="A"
+                android:textColor="@color/mildRed"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="4"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="pm 05:02"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="99.2%"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textSize="18sp"
+                android:gravity="center"
+                android:text="S"
+                android:textColor="@color/mildRed"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
-    <ListView
-        android:id="@+id/dayData"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+
 </LinearLayout>

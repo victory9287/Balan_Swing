@@ -159,16 +159,13 @@ public class MainActivity extends AppCompatActivity {
         init();
         MakeCalendarView();
         // 테스트
-//        cDay[5].mTvGrade.setText("C");
-//        cDay[10].mTvGrade.setText("C");
-//        cDay[14].mTvGrade.setText("B");
-//        cDay[13].mTvGrade.setText("B");
-//        cDay[17].mTvGrade.setText("B");
-//        cDay[19].mTvGrade.setText("B");
-//        cDay[22].mTvGrade.setText("A");
-//        cDay[25].mTvGrade.setText("A");
-//        cDay[27].mTvGrade.setText("A");
-//        cDay[29].mTvGrade.setText("S");
+        cDay[5].mTvGrade.setText("C");
+        cDay[10].mTvGrade.setText("C");
+        cDay[14].mTvGrade.setText("B");
+        cDay[13].mTvGrade.setText("B");
+        cDay[17].mTvGrade.setText("B");
+        cDay[19].mTvGrade.setText("S");
+        cDay[22].mTvGrade.setText("A");
     }
 
     public int GetPixelFromDP(float aDP)
@@ -274,14 +271,12 @@ public class MainActivity extends AppCompatActivity {
                     View dialogView = inflater.inflate(R.layout.dialog_day, null);
                     AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
                     String date = cDay[index].mYear+"년 "+cDay[index].mMonth+"월 "+cDay[index].mDay+"일";
-                    alert.setTitle(date);
+                    TextView title = (TextView) dialogView.findViewById(R.id.day_title);
+                    title.setText(date);
                     alert.setView(dialogView);
-                    alert.setNegativeButton("닫기", null);
 
                     AlertDialog dialog = alert.show();
                     dialog.show();
-
-                    //tvCurDate.setText(String.format("%04d/%02d/%02d", cDay[index].mYear, cDay[index].mMonth+1, cDay[index].mDay));
                 }
             }
         };
